@@ -1,6 +1,7 @@
 import type {
   ClassificationResult,
   CreateTicketInput,
+  ImportSummary,
   ListTicketsQuery,
   Ticket,
 } from '@repo/contracts';
@@ -37,4 +38,14 @@ export const ticketsApi = {
   remove: (id: string) => request<void>(`/tickets/${id}`, { method: 'DELETE' }),
   autoClassify: (id: string) =>
     request<ClassificationResult>(`/tickets/${id}/auto-classify`, { method: 'POST' }),
+  importFile: (file: File, autoClassify: boolean) => {
+    const body = new FormData();
+    body.append('file', file);
+    return request<ImportSummary>(`/tickets/import?auto_classify=${autoClassify}`, {
+      method: 'POST',
+      body,
+      // Override the JSON default so the browser sets the multipart boundary.
+      headers: {},
+    });
+  },
 };

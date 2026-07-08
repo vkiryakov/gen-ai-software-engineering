@@ -235,3 +235,32 @@ button.danger:hover {
   text-align: center;
   padding: 2rem;
 }
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav {
+  display: flex;
+  gap: 0.5rem;
+}
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+.nav a:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+.nav a.active {
+  color: var(--text);
+  border-color: var(--border);
+  background: var(--surface);
+}
