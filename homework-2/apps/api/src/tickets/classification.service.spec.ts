@@ -22,6 +22,56 @@ describe('ClassificationService', () => {
     expect(result.priority).toBe('medium');
     expect(result.confidence).toBeLessThanOrEqual(0.3);
   });
+
+  it('classifies payment problems as billing_question', () => {
+    const result = service.classify('Refund please', 'I need a refund for the duplicate charge on my invoice');
+    expect(result.category).toBe('billing_question');
+  });
+
+  it('classifies reproducible defects as bug_report', () => {
+    const result = service.classify('Broken export', 'Found a bug — steps to reproduce: click export twice');
+    expect(result.category).toBe('bug_report');
+  });
+
+  it('classifies crashes as technical_issue', () => {
+    const result = service.classify('App crash', 'The dashboard throws an exception and crashes on load');
+    expect(result.category).toBe('technical_issue');
+  });
+
+  it('classifies enhancement ideas as feature_request', () => {
+    const result = service.classify('Idea', 'It would be nice to have a dark mode, please add it');
+    expect(result.category).toBe('feature_request');
+  });
+
+  it('assigns high priority to blocking issues', () => {
+    const result = service.classify('Blocked', 'This error is blocking our release, please fix asap');
+    expect(result.priority).toBe('high');
+  });
+
+  it('assigns low priority to cosmetic issues', () => {
+    const result = service.classify('Minor issue', 'A minor cosmetic misalignment on the settings page button');
+    expect(result.priority).toBe('low');
+  });
+
+  it('matching is case-insensitive', () => {
+    const result = service.classify('PASSWORD RESET', 'CANNOT LOG IN TO MY ACCOUNT ANYMORE');
+    expect(result.category).toBe('account_access');
+  });
+
+  it('confidence grows with keyword count and never exceeds 0.95', () => {
+    const one = service.classify('bug', 'This is definitely a bug somewhere in the code');
+    const many = service.classify(
+      'critical security bug',
+      "Can't access production down critical security bug defect reproduce error crash important blocking",
+    );
+    expect(many.confidence).toBeGreaterThan(one.confidence);
+    expect(many.confidence).toBeLessThanOrEqual(0.95);
+  });
+
+  it('returns the exact keywords that fired', () => {
+    const result = service.classify('Invoice payment', 'The payment on my invoice failed');
+    expect(result.keywords_found).toEqual(expect.arrayContaining(['payment', 'invoice']));
+  });
 });
 
 describe('ClassificationService logging', () => {
