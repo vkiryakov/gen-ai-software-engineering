@@ -13,10 +13,12 @@ const METADATA_PREFIX = 'metadata_';
  * (400). A malformed *row* never fails the batch — papaparse reports
  * per-row field-count mismatches (`FieldMismatch`) as non-fatal entries
  * in `results.errors` while still returning the row in `results.data`,
- * so those are ignored here. The resulting row keeps only the fields it
- * actually has (missing/empty cells are omitted by `toRecord`), and row-
- * level validation is left to the downstream Zod schema, which lands
- * failures in the `ImportSummary` per row instead of rejecting the file.
+ * so those are ignored here. Rows with too few or too many fields are
+ * kept: missing/empty cells are simply omitted, and non-string artifacts
+ * papaparse attaches for surplus columns (e.g. `__parsed_extra`) are
+ * dropped by `toRecord` rather than propagated. Row-level validation is
+ * left to the downstream Zod schema, which lands failures in the
+ * `ImportSummary` per row instead of rejecting the file.
  */
 @Injectable()
 export class CsvParserService {
@@ -52,6 +54,7 @@ export class CsvParserService {
     const metadata: Record<string, string> = {};
 
     for (const [key, raw] of Object.entries(row)) {
+      if (typeof raw !== 'string') continue;
       const value = raw?.trim();
       if (!value) continue;
       if (key === 'tags') {

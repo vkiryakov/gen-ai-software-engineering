@@ -60,4 +60,12 @@ describe('CsvParserService', () => {
     expect(rows[1]).toMatchObject({ customer_id: 'cust-2' });
     expect(rows[1]).not.toHaveProperty('subject');
   });
+
+  it('does not crash when a row has extra fields (stray comma in a value)', () => {
+    const csv = `${HEADER}\ncust-1,ada@example.com,Ada,Slow app,The dashboard is very slow today,, extra,web_form,desktop,SURPLUS`;
+    const rows = parser.parse(csv) as Array<Record<string, unknown>>;
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ customer_id: 'cust-1' });
+    expect(rows[0]).not.toHaveProperty('__parsed_extra');
+  });
 });
