@@ -8,19 +8,32 @@ const METADATA_PREFIX = 'metadata_';
  * CSV → ticket-record candidates. Conventions: header row required;
  * `tags` is pipe-separated; `metadata_*` columns nest under `metadata`;
  * empty cells are omitted so Zod optionality applies downstream.
+ *
+ * Error model: an unparseable *file* fails fast with `ImportParseError`
+ * (400). A malformed *row* never fails the batch — papaparse reports
+ * per-row field-count mismatches (`FieldMismatch`) as non-fatal entries
+ * in `results.errors` while still returning the row in `results.data`,
+ * so those are ignored here. The resulting row keeps only the fields it
+ * actually has (missing/empty cells are omitted by `toRecord`), and row-
+ * level validation is left to the downstream Zod schema, which lands
+ * failures in the `ImportSummary` per row instead of rejecting the file.
  */
 @Injectable()
 export class CsvParserService {
   parse(content: string): unknown[] {
-    if (!content.trim()) throw new ImportParseError('CSV file is empty');
+    const trimmed = content.trim();
+    if (!trimmed) throw new ImportParseError('CSV file is empty');
 
-    const parsed = Papa.parse<Record<string, string>>(content.trim(), {
+    const parsed = Papa.parse<Record<string, string>>(trimmed, {
       header: true,
       skipEmptyLines: true,
     });
 
-    if (parsed.errors.length > 0) {
-      const first = parsed.errors[0];
+    const fatalErrors = parsed.errors.filter(
+      (error) => error.type !== 'FieldMismatch',
+    );
+    if (fatalErrors.length > 0) {
+      const first = fatalErrors[0];
       throw new ImportParseError(
         `Malformed CSV at row ${first.row ?? 'unknown'}: ${first.message}`,
       );

@@ -51,4 +51,13 @@ describe('CsvParserService', () => {
   it('throws ImportParseError when the header row is missing required columns', () => {
     expect(() => parser.parse('foo,bar\n1,2')).toThrow(ImportParseError);
   });
+
+  it('does not fail the whole file when one row has a field-count mismatch', () => {
+    const csv = `${HEADER}\ncust-1,ada@example.com,Ada,Slow app,The dashboard is very slow today.,,web_form,desktop\ncust-2,bob@example.com`;
+    const rows = parser.parse(csv) as Array<Record<string, unknown>>;
+    expect(rows).toHaveLength(2);
+    expect(rows[0]).toMatchObject({ customer_id: 'cust-1' });
+    expect(rows[1]).toMatchObject({ customer_id: 'cust-2' });
+    expect(rows[1]).not.toHaveProperty('subject');
+  });
 });
