@@ -54,4 +54,31 @@ describe('TicketsService', () => {
     expect(summary.failed).toBe(1);
     expect(summary.errors[0].row).toBe(1);
   });
+
+  it('stores classification provenance when auto_classify is requested', () => {
+    const ticket = service.create({ ...base, auto_classify: true });
+    expect(ticket.classification).toBeDefined();
+    expect(ticket.classification?.confidence).toBeGreaterThan(0);
+    expect(ticket.classification?.classified_at).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+  });
+
+  it('does not store classification when auto_classify is absent', () => {
+    const ticket = service.create(base);
+    expect(ticket.classification).toBeUndefined();
+  });
+
+  it('keeps explicit category on create but still records provenance', () => {
+    const ticket = service.create({ ...base, category: 'billing_question', auto_classify: true });
+    expect(ticket.category).toBe('billing_question');
+    expect(ticket.classification?.category).toBe('account_access');
+  });
+
+  it('autoClassify persists provenance and derived fields on the ticket', () => {
+    const created = service.create(base);
+    const result = service.autoClassify(created.id);
+    const reloaded = service.findOne(created.id);
+    expect(reloaded.category).toBe(result.category);
+    expect(reloaded.priority).toBe(result.priority);
+    expect(reloaded.classification?.reasoning).toBe(result.reasoning);
+  });
 });

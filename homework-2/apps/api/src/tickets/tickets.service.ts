@@ -22,12 +22,13 @@ export class TicketsService {
 
   create(input: CreateTicketInput): Ticket {
     const now = new Date().toISOString();
+    const id = randomUUID();
     const auto = input.auto_classify
-      ? this.classifier.classify(input.subject, input.description)
+      ? this.classifier.classify(input.subject, input.description, id)
       : undefined;
 
     const ticket: Ticket = {
-      id: randomUUID(),
+      id,
       customer_id: input.customer_id,
       customer_email: input.customer_email,
       customer_name: input.customer_name,
@@ -42,6 +43,7 @@ export class TicketsService {
       assigned_to: input.assigned_to ?? null,
       tags: input.tags ?? [],
       metadata: input.metadata ?? {},
+      ...(auto ? { classification: { ...auto, classified_at: now } } : {}),
     };
 
     this.tickets.set(ticket.id, ticket);
@@ -97,11 +99,18 @@ export class TicketsService {
     if (!this.tickets.delete(id)) throw new NotFoundException(`Ticket ${id} not found`);
   }
 
-  /** Auto-classify an existing ticket and persist the derived fields. */
+  /** Auto-classify an existing ticket and persist the derived fields + provenance. */
   autoClassify(id: string) {
     const ticket = this.findOne(id);
-    const result = this.classifier.classify(ticket.subject, ticket.description);
-    this.update(id, { category: result.category, priority: result.priority });
+    const result = this.classifier.classify(ticket.subject, ticket.description, id);
+    const now = new Date().toISOString();
+    this.tickets.set(id, {
+      ...ticket,
+      category: result.category,
+      priority: result.priority,
+      classification: { ...result, classified_at: now },
+      updated_at: now,
+    });
     return result;
   }
 

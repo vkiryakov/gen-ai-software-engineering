@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import type {
   ClassificationResult,
   TicketCategory,
@@ -22,6 +22,8 @@ interface PriorityRule {
  */
 @Injectable()
 export class ClassificationService {
+  private readonly logger = new Logger(ClassificationService.name);
+
   private readonly categoryRules: CategoryRule[] = [
     {
       category: 'account_access',
@@ -54,7 +56,7 @@ export class ClassificationService {
     { priority: 'low', keywords: ['minor', 'cosmetic', 'suggestion'] },
   ];
 
-  classify(subject: string, description: string): ClassificationResult {
+  classify(subject: string, description: string, ticketId?: string): ClassificationResult {
     const haystack = `${subject}\n${description}`.toLowerCase();
     const matched: string[] = [];
 
@@ -69,13 +71,21 @@ export class ClassificationService {
         ? 'No strong signals found; defaulted to "other" / "medium".'
         : `Matched keywords: ${matched.join(', ')}.`;
 
-    return {
+    const result: ClassificationResult = {
       category,
       priority,
       confidence: Number(confidence.toFixed(2)),
       reasoning,
       keywords_found: matched,
     };
+
+    this.logger.log(
+      `Classified ${ticketId ?? '(new ticket)'} → category=${result.category}, ` +
+        `priority=${result.priority}, confidence=${result.confidence}, ` +
+        `keywords=[${matched.join(', ')}]`,
+    );
+
+    return result;
   }
 
   private matchCategory(haystack: string, matched: string[]): TicketCategory {

@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { ClassificationService } from './classification.service';
 
 describe('ClassificationService', () => {
@@ -20,5 +21,15 @@ describe('ClassificationService', () => {
     expect(result.category).toBe('other');
     expect(result.priority).toBe('medium');
     expect(result.confidence).toBeLessThanOrEqual(0.3);
+  });
+});
+
+describe('ClassificationService logging', () => {
+  it('logs every classification decision', () => {
+    const logSpy = jest.spyOn(Logger.prototype, 'log').mockImplementation(() => undefined);
+    new ClassificationService().classify('Billing issue', 'I was charged twice on my invoice', 'ticket-42');
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('ticket-42'));
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('billing_question'));
+    logSpy.mockRestore();
   });
 });
