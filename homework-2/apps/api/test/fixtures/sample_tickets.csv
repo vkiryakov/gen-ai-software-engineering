@@ -1,0 +1,51 @@
+customer_id,customer_email,customer_name,subject,description,tags,metadata_source,metadata_device_type
+cust-001,customer1@example.com,Customer 1,Cannot reset my password (#1),I forgot my password and now I am locked out of my account.,auth,web_form,desktop
+cust-002,customer2@example.com,Customer 2,Payment failed twice (#2),"My invoice shows a duplicate charge on my subscription, need a refund.",billing|money,email,mobile
+cust-003,customer3@example.com,Customer 3,App crash on startup (#3),The application throws an error and crashes every time I open it.,,api,tablet
+cust-004,customer4@example.com,Customer 4,Found a bug in export (#4),"Steps to reproduce: open the report, click export, the file is corrupted.",export,chat,desktop
+cust-005,customer5@example.com,Customer 5,Please add dark mode (#5),"It would be nice to have a dark mode feature, just a suggestion.",ui,phone,mobile
+cust-006,customer6@example.com,Customer 6,Production down for all users (#6),"Critical outage, production down since 09:00, this is blocking everyone.",outage|critical,web_form,tablet
+cust-007,customer7@example.com,Customer 7,Question about my plan (#7),I would like to understand what my current plan includes exactly.,,email,desktop
+cust-008,customer8@example.com,Customer 8,Cannot reset my password (#8),I forgot my password and now I am locked out of my account.,auth,api,mobile
+cust-009,customer9@example.com,Customer 9,Payment failed twice (#9),"My invoice shows a duplicate charge on my subscription, need a refund.",billing|money,chat,tablet
+cust-010,customer10@example.com,Customer 10,App crash on startup (#10),The application throws an error and crashes every time I open it.,,phone,desktop
+cust-011,customer11@example.com,Customer 11,Found a bug in export (#11),"Steps to reproduce: open the report, click export, the file is corrupted.",export,web_form,mobile
+cust-012,customer12@example.com,Customer 12,Please add dark mode (#12),"It would be nice to have a dark mode feature, just a suggestion.",ui,email,tablet
+cust-013,customer13@example.com,Customer 13,Production down for all users (#13),"Critical outage, production down since 09:00, this is blocking everyone.",outage|critical,api,desktop
+cust-014,customer14@example.com,Customer 14,Question about my plan (#14),I would like to understand what my current plan includes exactly.,,chat,mobile
+cust-015,customer15@example.com,Customer 15,Cannot reset my password (#15),I forgot my password and now I am locked out of my account.,auth,phone,tablet
+cust-016,customer16@example.com,Customer 16,Payment failed twice (#16),"My invoice shows a duplicate charge on my subscription, need a refund.",billing|money,web_form,desktop
+cust-017,customer17@example.com,Customer 17,App crash on startup (#17),The application throws an error and crashes every time I open it.,,email,mobile
+cust-018,customer18@example.com,Customer 18,Found a bug in export (#18),"Steps to reproduce: open the report, click export, the file is corrupted.",export,api,tablet
+cust-019,customer19@example.com,Customer 19,Please add dark mode (#19),"It would be nice to have a dark mode feature, just a suggestion.",ui,chat,desktop
+cust-020,customer20@example.com,Customer 20,Production down for all users (#20),"Critical outage, production down since 09:00, this is blocking everyone.",outage|critical,phone,mobile
+cust-021,customer21@example.com,Customer 21,Question about my plan (#21),I would like to understand what my current plan includes exactly.,,web_form,tablet
+cust-022,customer22@example.com,Customer 22,Cannot reset my password (#22),I forgot my password and now I am locked out of my account.,auth,email,desktop
+cust-023,customer23@example.com,Customer 23,Payment failed twice (#23),"My invoice shows a duplicate charge on my subscription, need a refund.",billing|money,api,mobile
+cust-024,customer24@example.com,Customer 24,App crash on startup (#24),The application throws an error and crashes every time I open it.,,chat,tablet
+cust-025,customer25@example.com,Customer 25,Found a bug in export (#25),"Steps to reproduce: open the report, click export, the file is corrupted.",export,phone,desktop
+cust-026,customer26@example.com,Customer 26,Please add dark mode (#26),"It would be nice to have a dark mode feature, just a suggestion.",ui,web_form,mobile
+cust-027,customer27@example.com,Customer 27,Production down for all users (#27),"Critical outage, production down since 09:00, this is blocking everyone.",outage|critical,email,tablet
+cust-028,customer28@example.com,Customer 28,Question about my plan (#28),I would like to understand what my current plan includes exactly.,,api,desktop
+cust-029,customer29@example.com,Customer 29,Cannot reset my password (#29),I forgot my password and now I am locked out of my account.,auth,chat,mobile
+cust-030,customer30@example.com,Customer 30,Payment failed twice (#30),"My invoice shows a duplicate charge on my subscription, need a refund.",billing|money,phone,tablet
+cust-031,customer31@example.com,Customer 31,App crash on startup (#31),The application throws an error and crashes every time I open it.,,web_form,desktop
+cust-032,customer32@example.com,Customer 32,Found a bug in export (#32),"Steps to reproduce: open the report, click export, the file is corrupted.",export,email,mobile
+cust-033,customer33@example.com,Customer 33,Please add dark mode (#33),"It would be nice to have a dark mode feature, just a suggestion.",ui,api,tablet
+cust-034,customer34@example.com,Customer 34,Production down for all users (#34),"Critical outage, production down since 09:00, this is blocking everyone.",outage|critical,chat,desktop
+cust-035,customer35@example.com,Customer 35,Question about my plan (#35),I would like to understand what my current plan includes exactly.,,phone,mobile
+cust-036,customer36@example.com,Customer 36,Cannot reset my password (#36),I forgot my password and now I am locked out of my account.,auth,web_form,tablet
+cust-037,customer37@example.com,Customer 37,Payment failed twice (#37),"My invoice shows a duplicate charge on my subscription, need a refund.",billing|money,email,desktop
+cust-038,customer38@example.com,Customer 38,App crash on startup (#38),The application throws an error and crashes every time I open it.,,api,mobile
+cust-039,customer39@example.com,Customer 39,Found a bug in export (#39),"Steps to reproduce: open the report, click export, the file is corrupted.",export,chat,tablet
+cust-040,customer40@example.com,Customer 40,Please add dark mode (#40),"It would be nice to have a dark mode feature, just a suggestion.",ui,phone,desktop
+cust-041,customer41@example.com,Customer 41,Production down for all users (#41),"Critical outage, production down since 09:00, this is blocking everyone.",outage|critical,web_form,mobile
+cust-042,customer42@example.com,Customer 42,Question about my plan (#42),I would like to understand what my current plan includes exactly.,,email,tablet
+cust-043,customer43@example.com,Customer 43,Cannot reset my password (#43),I forgot my password and now I am locked out of my account.,auth,api,desktop
+cust-044,customer44@example.com,Customer 44,Payment failed twice (#44),"My invoice shows a duplicate charge on my subscription, need a refund.",billing|money,chat,mobile
+cust-045,customer45@example.com,Customer 45,App crash on startup (#45),The application throws an error and crashes every time I open it.,,phone,tablet
+cust-046,customer46@example.com,Customer 46,Found a bug in export (#46),"Steps to reproduce: open the report, click export, the file is corrupted.",export,web_form,desktop
+cust-047,customer47@example.com,Customer 47,Please add dark mode (#47),"It would be nice to have a dark mode feature, just a suggestion.",ui,email,mobile
+cust-048,customer48@example.com,Customer 48,Production down for all users (#48),"Critical outage, production down since 09:00, this is blocking everyone.",outage|critical,api,tablet
+cust-049,customer49@example.com,Customer 49,Question about my plan (#49),I would like to understand what my current plan includes exactly.,,chat,desktop
+cust-050,customer50@example.com,Customer 50,Cannot reset my password (#50),I forgot my password and now I am locked out of my account.,auth,phone,mobile

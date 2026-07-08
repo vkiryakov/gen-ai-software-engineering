@@ -1,0 +1,280 @@
+{
+  "records": [
+    {
+      "customer_id": "cust-001",
+      "customer_email": "customer1@example.com",
+      "customer_name": "Customer 1",
+      "subject": "Cannot reset my password (#1)",
+      "description": "I forgot my password and now I am locked out of my account.",
+      "tags": [
+        "auth"
+      ],
+      "metadata": {
+        "source": "web_form",
+        "device_type": "desktop"
+      }
+    },
+    {
+      "customer_id": "cust-002",
+      "customer_email": "customer2@example.com",
+      "customer_name": "Customer 2",
+      "subject": "Payment failed twice (#2)",
+      "description": "My invoice shows a duplicate charge on my subscription, need a refund.",
+      "tags": [
+        "billing",
+        "money"
+      ],
+      "metadata": {
+        "source": "email",
+        "device_type": "mobile"
+      }
+    },
+    {
+      "customer_id": "cust-003",
+      "customer_email": "customer3@example.com",
+      "customer_name": "Customer 3",
+      "subject": "App crash on startup (#3)",
+      "description": "The application throws an error and crashes every time I open it.",
+      "tags": [],
+      "metadata": {
+        "source": "api",
+        "device_type": "tablet"
+      }
+    },
+    {
+      "customer_id": "cust-004",
+      "customer_email": "customer4@example.com",
+      "customer_name": "Customer 4",
+      "subject": "Found a bug in export (#4)",
+      "description": "Steps to reproduce: open the report, click export, the file is corrupted.",
+      "tags": [
+        "export"
+      ],
+      "metadata": {
+        "source": "chat",
+        "device_type": "desktop"
+      }
+    },
+    {
+      "customer_id": "cust-005",
+      "customer_email": "customer5@example.com",
+      "customer_name": "Customer 5",
+      "subject": "Please add dark mode (#5)",
+      "description": "It would be nice to have a dark mode feature, just a suggestion.",
+      "tags": [
+        "ui"
+      ],
+      "metadata": {
+        "source": "phone",
+        "device_type": "mobile"
+      }
+    },
+    {
+      "customer_id": "cust-006",
+      "customer_email": "customer6@example.com",
+      "customer_name": "Customer 6",
+      "subject": "Production down for all users (#6)",
+      "description": "Critical outage, production down since 09:00, this is blocking everyone.",
+      "tags": [
+        "outage",
+        "critical"
+      ],
+      "metadata": {
+        "source": "web_form",
+        "device_type": "tablet"
+      }
+    },
+    {
+      "customer_id": "cust-007",
+      "customer_email": "customer7@example.com",
+      "customer_name": "Customer 7",
+      "subject": "Question about my plan (#7)",
+      "description": "I would like to understand what my current plan includes exactly.",
+      "tags": [],
+      "metadata": {
+        "source": "email",
+        "device_type": "desktop"
+      }
+    },
+    {
+      "customer_id": "cust-008",
+      "customer_email": "customer8@example.com",
+      "customer_name": "Customer 8",
+      "subject": "Cannot reset my password (#8)",
+      "description": "I forgot my password and now I am locked out of my account.",
+      "tags": [
+        "auth"
+      ],
+      "metadata": {
+        "source": "api",
+        "device_type": "mobile"
+      }
+    },
+    {
+      "customer_id": "cust-009",
+      "customer_email": "customer9@example.com",
+      "customer_name": "Customer 9",
+      "subject": "Payment failed twice (#9)",
+      "description": "My invoice shows a duplicate charge on my subscription, need a refund.",
+      "tags": [
+        "billing",
+        "money"
+      ],
+      "metadata": {
+        "source": "chat",
+        "device_type": "tablet"
+      }
+    },
+    {
+      "customer_id": "cust-010",
+      "customer_email": "customer10@example.com",
+      "customer_name": "Customer 10",
+      "subject": "App crash on startup (#10)",
+      "description": "The application throws an error and crashes every time I open it.",
+      "tags": [],
+      "metadata": {
+        "source": "phone",
+        "device_type": "desktop"
+      }
+    },
+    {
+      "customer_id": "cust-011",
+      "customer_email": "customer11@example.com",
+      "customer_name": "Customer 11",
+      "subject": "Found a bug in export (#11)",
+      "description": "Steps to reproduce: open the report, click export, the file is corrupted.",
+      "tags": [
+        "export"
+      ],
+      "metadata": {
+        "source": "web_form",
+        "device_type": "mobile"
+      }
+    },
+    {
+      "customer_id": "cust-012",
+      "customer_email": "customer12@example.com",
+      "customer_name": "Customer 12",
+      "subject": "Please add dark mode (#12)",
+      "description": "It would be nice to have a dark mode feature, just a suggestion.",
+      "tags": [
+        "ui"
+      ],
+      "metadata": {
+        "source": "email",
+        "device_type": "tablet"
+      }
+    },
+    {
+      "customer_id": "cust-013",
+      "customer_email": "customer13@example.com",
+      "customer_name": "Customer 13",
+      "subject": "Production down for all users (#13)",
+      "description": "Critical outage, production down since 09:00, this is blocking everyone.",
+      "tags": [
+        "outage",
+        "critical"
+      ],
+      "metadata": {
+        "source": "api",
+        "device_type": "desktop"
+      }
+    },
+    {
+      "customer_id": "cust-014",
+      "customer_email": "customer14@example.com",
+      "customer_name": "Customer 14",
+      "subject": "Question about my plan (#14)",
+      "description": "I would like to understand what my current plan includes exactly.",
+      "tags": [],
+      "metadata": {
+        "source": "chat",
+        "device_type": "mobile"
+      }
+    },
+    {
+      "customer_id": "cust-015",
+      "customer_email": "customer15@example.com",
+      "customer_name": "Customer 15",
+      "subject": "Cannot reset my password (#15)",
+      "description": "I forgot my password and now I am locked out of my account.",
+      "tags": [
+        "auth"
+      ],
+      "metadata": {
+        "source": "phone",
+        "device_type": "tablet"
+      }
+    },
+    {
+      "customer_id": "cust-016",
+      "customer_email": "customer16@example.com",
+      "customer_name": "Customer 16",
+      "subject": "Payment failed twice (#16)",
+      "description": "My invoice shows a duplicate charge on my subscription, need a refund.",
+      "tags": [
+        "billing",
+        "money"
+      ],
+      "metadata": {
+        "source": "web_form",
+        "device_type": "desktop"
+      }
+    },
+    {
+      "customer_id": "cust-017",
+      "customer_email": "customer17@example.com",
+      "customer_name": "Customer 17",
+      "subject": "App crash on startup (#17)",
+      "description": "The application throws an error and crashes every time I open it.",
+      "tags": [],
+      "metadata": {
+        "source": "email",
+        "device_type": "mobile"
+      }
+    },
+    {
+      "customer_id": "cust-018",
+      "customer_email": "customer18@example.com",
+      "customer_name": "Customer 18",
+      "subject": "Found a bug in export (#18)",
+      "description": "Steps to reproduce: open the report, click export, the file is corrupted.",
+      "tags": [
+        "export"
+      ],
+      "metadata": {
+        "source": "api",
+        "device_type": "tablet"
+      }
+    },
+    {
+      "customer_id": "cust-019",
+      "customer_email": "customer19@example.com",
+      "customer_name": "Customer 19",
+      "subject": "Please add dark mode (#19)",
+      "description": "It would be nice to have a dark mode feature, just a suggestion.",
+      "tags": [
+        "ui"
+      ],
+      "metadata": {
+        "source": "chat",
+        "device_type": "desktop"
+      }
+    },
+    {
+      "customer_id": "cust-020",
+      "customer_email": "customer20@example.com",
+      "customer_name": "Customer 20",
+      "subject": "Production down for all users (#20)",
+      "description": "Critical outage, production down since 09:00, this is blocking everyone.",
+      "tags": [
+        "outage",
+        "critical"
+      ],
+      "metadata": {
+        "source": "phone",
+        "device_type": "mobile"
+      }
+    }
+  ]
+}
