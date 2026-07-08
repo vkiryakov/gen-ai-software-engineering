@@ -62,6 +62,15 @@ describe('Integration workflows (e2e)', () => {
   });
 
   it('handles 25 concurrent creates without losing or duplicating tickets', async () => {
+    // supertest's `Test` implicitly calls `server.listen(0)` the first time it sees a
+    // non-listening server, then closes that server once *its own* request finishes.
+    // With 25 requests fired synchronously via Promise.all, only the first `Test`
+    // instance owns that listen()/close() pair — its early completion closes the
+    // shared server while the other 24 requests are still in flight, producing
+    // ECONNRESET. Listening once up front (so the server is already bound before any
+    // `Test` is constructed) avoids the implicit listen/close entirely.
+    await app.listen(0);
+
     const responses = await Promise.all(
       Array.from({ length: 25 }, (_, i) =>
         http().post('/tickets').send({ ...validTicket, subject: `Concurrent ticket ${i}` }),
