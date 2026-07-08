@@ -1,0 +1,118 @@
+### Sample requests for the homework-1 NestJS service.
+### Compatible with the VS Code REST Client extension and JetBrains HTTP Client.
+### Server defaults to http://localhost:3000 — start it with ../demo/run.sh
+
+@host = http://localhost:3000
+
+############################################################
+# Transactions — POST /transactions
+############################################################
+
+### Deposit
+POST {{host}}/transactions
+Content-Type: application/json
+
+{
+  "toAccount": "ACC-00001",
+  "amount": 100.50,
+  "currency": "USD",
+  "type": "deposit"
+}
+
+### Withdrawal
+POST {{host}}/transactions
+Content-Type: application/json
+
+{
+  "fromAccount": "ACC-00001",
+  "amount": 25.00,
+  "currency": "USD",
+  "type": "withdrawal"
+}
+
+### Transfer between accounts
+POST {{host}}/transactions
+Content-Type: application/json
+
+{
+  "fromAccount": "ACC-00001",
+  "toAccount": "ACC-00002",
+  "amount": 30.00,
+  "currency": "USD",
+  "type": "transfer"
+}
+
+### Deposit in a different currency
+POST {{host}}/transactions
+Content-Type: application/json
+
+{
+  "toAccount": "ACC-00001",
+  "amount": 200.00,
+  "currency": "EUR",
+  "type": "deposit"
+}
+
+### Pending deposit (explicit status)
+POST {{host}}/transactions
+Content-Type: application/json
+
+{
+  "toAccount": "ACC-00002",
+  "amount": 500.00,
+  "currency": "USD",
+  "type": "deposit",
+  "status": "pending"
+}
+
+### Validation error — unknown currency
+POST {{host}}/transactions
+Content-Type: application/json
+
+{
+  "toAccount": "ACC-00001",
+  "amount": 10,
+  "currency": "XYZ",
+  "type": "deposit"
+}
+
+############################################################
+# Transactions — list, lookup, export
+############################################################
+
+### List all transactions
+GET {{host}}/transactions
+
+### Filter: by account (either as source or destination)
+GET {{host}}/transactions?accountId=ACC-00001
+
+### Filter: by type
+GET {{host}}/transactions?type=deposit
+
+### Filter: by date range (inclusive)
+GET {{host}}/transactions?from=2024-01-01&to=2024-12-31
+
+### Filter: combined
+GET {{host}}/transactions?accountId=ACC-00001&type=withdrawal&from=2024-01-01
+
+### Export as CSV (default format)
+GET {{host}}/transactions/export
+
+### Export as CSV (explicit format)
+GET {{host}}/transactions/export?format=csv
+
+### Get a single transaction by id — replace <id> with one returned from POST /transactions
+GET {{host}}/transactions/<id>
+
+############################################################
+# Accounts
+############################################################
+
+### Balance grouped by currency (completed transactions only)
+GET {{host}}/accounts/ACC-00001/balance
+
+### Activity summary: per-currency totals, count, last transaction date
+GET {{host}}/accounts/ACC-00001/summary
+
+### Simple interest: rate=5% annual over 30 days
+GET {{host}}/accounts/ACC-00001/interest?rate=0.05&days=30

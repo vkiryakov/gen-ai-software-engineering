@@ -1,0 +1,41 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>7. GET /transactions/does-not-exist — 404</title>
+<style>
+  body { font-family: 'Menlo','Monaco',monospace; background:#1e1e1e; color:#d4d4d4;
+          margin:0; padding:28px; font-size:13px; line-height:1.5; }
+  h1 { color:#dcdcaa; font-size:15px; margin:0 0 18px; font-weight:600; }
+  .label { color:#9cdcfe; font-size:11px; text-transform:uppercase; letter-spacing:.08em;
+            margin:14px 0 6px; }
+  .block { background:#252526; border-left:3px solid #569cd6; padding:12px 16px;
+            white-space:pre-wrap; word-break:break-word; }
+  .cmd { border-left-color:#4ec9b0; color:#ce9178; }
+  .status-ok { border-left-color:#4ec9b0; }
+  .status-err { border-left-color:#f48771; }
+  .status-line { font-weight:600; }
+  .status-line.ok { color:#4ec9b0; }
+  .status-line.err { color:#f48771; }
+</style></head>
+<body>
+  <h1>7. GET /transactions/does-not-exist — 404</h1>
+  <div class="label">Request</div>
+  <div class="block cmd">$ curl http://localhost:3000/transactions/does-not-exist</div>
+  <div class="label">Status</div>
+  <div class="block"><span class="status-line err">HTTP/1.1 404 Not Found</span></div>
+  <div class="label">Response headers</div>
+  <div class="block">X-Powered-By: Express
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 98
+X-RateLimit-Reset: 60
+Content-Type: application/json; charset=utf-8
+Content-Length: 91
+ETag: W/&quot;5b-1X1Ku+AJJJAVHktqUe1aTGf/BBg&quot;
+Date: Tue, 12 May 2026 19:16:50 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5</div>
+  <div class="label">Response body</div>
+  <div class="block status-err">{
+  &quot;message&quot;: &quot;Transaction \&quot;does-not-exist\&quot; not found&quot;,
+  &quot;error&quot;: &quot;Not Found&quot;,
+  &quot;statusCode&quot;: 404
+}</div>
+</body></html>

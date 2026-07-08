@@ -1,0 +1,7 @@
+homework-1/node_modules
+homework-1/dist
+
+# Local environment files (commit .env.example, not .env)
+.env
+.env.local
+.env.*.local

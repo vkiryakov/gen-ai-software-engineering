@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>6. GET /transactions/c019f857-a884-4bb6-9f0e-3f8f98c5d2ce — fetch by id</title>
+<style>
+  body { font-family: 'Menlo','Monaco',monospace; background:#1e1e1e; color:#d4d4d4;
+          margin:0; padding:28px; font-size:13px; line-height:1.5; }
+  h1 { color:#dcdcaa; font-size:15px; margin:0 0 18px; font-weight:600; }
+  .label { color:#9cdcfe; font-size:11px; text-transform:uppercase; letter-spacing:.08em;
+            margin:14px 0 6px; }
+  .block { background:#252526; border-left:3px solid #569cd6; padding:12px 16px;
+            white-space:pre-wrap; word-break:break-word; }
+  .cmd { border-left-color:#4ec9b0; color:#ce9178; }
+  .status-ok { border-left-color:#4ec9b0; }
+  .status-err { border-left-color:#f48771; }
+  .status-line { font-weight:600; }
+  .status-line.ok { color:#4ec9b0; }
+  .status-line.err { color:#f48771; }
+</style></head>
+<body>
+  <h1>6. GET /transactions/c019f857-a884-4bb6-9f0e-3f8f98c5d2ce — fetch by id</h1>
+  <div class="label">Request</div>
+  <div class="block cmd">$ curl http://localhost:3000/transactions/c019f857-a884-4bb6-9f0e-3f8f98c5d2ce</div>
+  <div class="label">Status</div>
+  <div class="block"><span class="status-line ok">HTTP/1.1 200 OK</span></div>
+  <div class="label">Response headers</div>
+  <div class="block">X-Powered-By: Express
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 99
+X-RateLimit-Reset: 60
+Content-Type: application/json; charset=utf-8
+Content-Length: 198
+ETag: W/&quot;c6-A6vBknOgaWG615qxtg8o/4lHfXQ&quot;
+Date: Tue, 12 May 2026 19:16:50 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5</div>
+  <div class="label">Response body</div>
+  <div class="block status-ok">{
+  &quot;id&quot;: &quot;c019f857-a884-4bb6-9f0e-3f8f98c5d2ce&quot;,
+  &quot;fromAccount&quot;: null,
+  &quot;toAccount&quot;: &quot;ACC-00001&quot;,
+  &quot;amount&quot;: 1000.5,
+  &quot;currency&quot;: &quot;USD&quot;,
+  &quot;type&quot;: &quot;deposit&quot;,
+  &quot;timestamp&quot;: &quot;2026-05-12T19:12:46.702Z&quot;,
+  &quot;status&quot;: &quot;completed&quot;
+}</div>
+</body></html>
