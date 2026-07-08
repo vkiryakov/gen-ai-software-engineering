@@ -23,7 +23,7 @@ Missing relative to TASKS.md:
 ## 2. Decisions (approved during brainstorming)
 
 | Decision | Choice |
-|---|---|
+| --- | --- |
 | Import transport | Multipart file upload (`FileInterceptor`, multer via `@nestjs/platform-express`) |
 | Architecture | Modular: dedicated `ImportModule` with per-format parser services |
 | Old JSON `records` body | **Dropped** — JSON import = upload a `.json` file; nothing consumes the old shape |
@@ -79,7 +79,7 @@ New `ImportModule` with three parser services, each implementing `parse(content:
 Mapping to the assignment's required suites:
 
 | TASKS.md suite | File | Tests |
-|---|---|---|
+| --- | --- | --- |
 | test_ticket_api (11) | `apps/api/test/ticket-api.e2e-spec.ts` — supertest over all endpoints + error codes | 11+ |
 | test_ticket_model (9) | `apps/api/test/ticket-model.spec.ts` — Zod schema validation: email, string lengths, enums, strict mode | 9+ |
 | test_import_csv (6) | `apps/api/src/import/csv-parser.spec.ts` — happy path, quoting, tags/metadata mapping, malformed, empty, missing headers | 6+ |
@@ -102,7 +102,7 @@ Mapping to the assignment's required suites:
 - **ARCHITECTURE.md** (new): high-level Mermaid diagram, component descriptions, two Mermaid sequence diagrams (file-import flow, auto-classification flow), design decisions & trade-offs (in-memory store, rule-based classifier, shared contracts), security and performance considerations
 - **TESTING_GUIDE.md** (new): Mermaid test-pyramid diagram, how to run tests, fixture locations, manual testing checklist, performance benchmarks table, mapping of files to TASKS.md suite names
 
-Mermaid diagram count: 5+ (requirement: ≥3). Each doc ends with a "Generated with <model>" footnote; the user may regenerate individual docs with different models to satisfy the "different AI models per doc type" requirement.
+Mermaid diagram count: 5+ (requirement: ≥3). Each doc ends with a "Generated with `<model name>`" footnote; the user may regenerate individual docs with different models to satisfy the "different AI models per doc type" requirement.
 
 ## 9. Out of Scope
 
