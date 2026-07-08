@@ -1,5 +1,6 @@
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { TicketsPage } from './pages/TicketsPage';
+import { ImportPage } from './pages/ImportPage';
 
 export function App() {
   return (
@@ -11,6 +12,7 @@ export function App() {
             <NavLink to="/" end>
               Tickets
             </NavLink>
+            <NavLink to="/import">Import</NavLink>
           </nav>
         </div>
         <p>React + NestJS + shared contracts, wired through Turborepo.</p>
@@ -18,6 +20,7 @@ export function App() {
 
       <Routes>
         <Route path="/" element={<TicketsPage />} />
+        <Route path="/import" element={<ImportPage />} />
       </Routes>
     </div>
   );
