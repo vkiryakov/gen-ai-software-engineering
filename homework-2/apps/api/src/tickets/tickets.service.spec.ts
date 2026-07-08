@@ -47,12 +47,19 @@ describe('TicketsService', () => {
     expect(() => service.findOne('nope')).toThrow(NotFoundException);
   });
 
-  it('summarizes a JSON import with row-level errors', () => {
-    const summary = service.importJson([base, { customer_id: 'x' }]);
+  it('summarizes an import with row-level errors', () => {
+    const summary = service.importRecords([base, { customer_id: 'x' }]);
     expect(summary.total).toBe(2);
     expect(summary.successful).toBe(1);
     expect(summary.failed).toBe(1);
     expect(summary.errors[0].row).toBe(1);
+  });
+
+  it('classifies every imported row when autoClassify is set', () => {
+    service.importRecords([base], true);
+    const [ticket] = service.findAll();
+    expect(ticket.classification).toBeDefined();
+    expect(ticket.category).toBe('account_access');
   });
 
   it('stores classification provenance when auto_classify is requested', () => {

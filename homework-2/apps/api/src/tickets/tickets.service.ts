@@ -114,8 +114,8 @@ export class TicketsService {
     return result;
   }
 
-  /** Bulk import a JSON array of ticket payloads, returning a per-row summary. */
-  importJson(rows: unknown[]): ImportSummary {
+  /** Bulk import parsed rows, returning a per-row summary. */
+  importRecords(rows: unknown[], autoClassify = false): ImportSummary {
     const summary: ImportSummary = {
       total: rows.length,
       successful: 0,
@@ -126,7 +126,7 @@ export class TicketsService {
     rows.forEach((row, index) => {
       const parsed = createTicketSchema.safeParse(row);
       if (parsed.success) {
-        this.create(parsed.data);
+        this.create({ ...parsed.data, auto_classify: autoClassify || parsed.data.auto_classify });
         summary.successful += 1;
       } else {
         summary.failed += 1;
