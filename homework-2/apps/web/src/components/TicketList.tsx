@@ -21,9 +21,24 @@ export function TicketList({ tickets, onDelete, onClassify }: TicketListProps) {
               <span className={`badge priority-${ticket.priority}`}>{ticket.priority}</span>
               <span className="badge category">{ticket.category}</span>
               <span className={`badge status-${ticket.status}`}>{ticket.status}</span>
+              {ticket.classification && (
+                <span className="badge confidence" title={ticket.classification.reasoning}>
+                  {Math.round(ticket.classification.confidence * 100)}% auto
+                </span>
+              )}
             </div>
           </div>
           <p className="description">{ticket.description}</p>
+          {ticket.classification && (
+            <details className="classification-details">
+              <summary>Classification details</summary>
+              <p>{ticket.classification.reasoning}</p>
+              {ticket.classification.keywords_found.length > 0 && (
+                <p>Keywords: {ticket.classification.keywords_found.join(', ')}</p>
+              )}
+              <p>Classified at {new Date(ticket.classification.classified_at).toLocaleString()}</p>
+            </details>
+          )}
           <div className="ticket-meta">
             <span>
               {ticket.customer_name} · {ticket.customer_email}

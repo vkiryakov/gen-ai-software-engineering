@@ -335,3 +335,27 @@ button.danger:hover {
   font-size: 0.7rem;
   letter-spacing: 0.04em;
 }
+
+.badge.confidence {
+  background: rgba(99, 102, 241, 0.18);
+  border-color: var(--accent);
+  color: #c7d2fe;
+}
+
+.classification-details {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.82rem;
+}
+.classification-details summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-weight: 600;
+}
+.classification-details p {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+}
