@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ticketClassificationSchema } from './classification.js';
 import {
   deviceTypeSchema,
   ticketCategorySchema,
@@ -36,6 +37,8 @@ export const ticketSchema = z
     assigned_to: z.string().nullable(),
     tags: z.array(z.string()),
     metadata: ticketMetadataSchema,
+    /** Provenance of the last auto-classification run, if any. */
+    classification: ticketClassificationSchema.optional(),
   })
   .strict();
 
