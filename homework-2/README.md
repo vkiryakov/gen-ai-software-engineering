@@ -9,19 +9,27 @@ typing on the client.
 
 ```mermaid
 flowchart LR
-    subgraph web["apps/web — React + Vite"]
-        UI[Ticket UI]
+    subgraph web["apps/web — React + Vite + react-router"]
+        UI[Tickets page]
+        IMP[Import page]
         Client[typed API client]
     end
     subgraph api["apps/api — NestJS"]
         Ctrl[TicketsController]
-        Svc[TicketsService]
-        Cls[ClassificationService]
+        subgraph import["ImportModule"]
+            CSV[CsvParser]
+            JSONP[JsonParser]
+            XML[XmlParser]
+        end
+        Svc[TicketsService<br/>in-memory Map]
+        Cls[ClassificationService<br/>rule-based + Logger]
     end
     contracts["packages/contracts<br/>Zod schemas + types"]
 
     UI --> Client
+    IMP --> Client
     Client -->|"HTTP /api/tickets"| Ctrl
+    Ctrl --> CSV & JSONP & XML
     Ctrl --> Svc
     Svc --> Cls
     contracts -. "types" .-> Client
@@ -72,6 +80,7 @@ to the NestJS backend, so there is no CORS to configure locally.
 | `pnpm test` | Run all test suites |
 | `pnpm lint` | Lint every workspace |
 | `pnpm type-check` | Type-check every workspace |
+| `pnpm --filter @repo/api test:cov` | API coverage report — enforced 85% threshold |
 
 Target a single workspace with `--filter`, e.g. `pnpm --filter @repo/api dev`.
 
@@ -83,7 +92,7 @@ Base URL: `http://localhost:3001/api`
 |---|---|---|
 | `GET` | `/health` | Liveness probe |
 | `POST` | `/tickets` | Create a ticket (`auto_classify: true` to classify on create) |
-| `POST` | `/tickets/import` | Bulk import from a JSON `records` array → import summary |
+| `POST` | `/tickets/import` | Bulk import a CSV/JSON/XML file (multipart `file` field; `?format=` override, `?auto_classify=true`) |
 | `GET` | `/tickets` | List tickets (filter by `category`, `priority`, `status`, `assigned_to`, `search`) |
 | `GET` | `/tickets/:id` | Fetch one ticket |
 | `PUT` | `/tickets/:id` | Update a ticket |
@@ -92,6 +101,16 @@ Base URL: `http://localhost:3001/api`
 
 Tickets are held in memory (`Map`) for now — swap `TicketsService` for a real repository
 (Prisma/TypeORM) without touching the controller or the contracts.
+
+## Sample data
+
+Ready-made CSV/JSON/XML fixtures (50/20/30 valid tickets plus deliberately invalid files) live
+under [`apps/api/test/fixtures/`](apps/api/test/fixtures/) — hand them to `POST /tickets/import`
+to try the bulk import flow. Regenerate them with:
+
+```bash
+node apps/api/scripts/generate-fixtures.mjs
+```
 
 ## Adding to the shared contract
 
@@ -103,3 +122,10 @@ pnpm --filter @repo/contracts build
 
 Both apps pick up the new types automatically (run `pnpm --filter @repo/contracts dev` to
 rebuild on change while developing).
+
+## Documentation
+
+- [`docs/API_REFERENCE.md`](docs/API_REFERENCE.md) — endpoint-level request/response reference for API consumers.
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — components, data flow diagrams, design decisions, security and performance considerations.
+- [`docs/TESTING_GUIDE.md`](docs/TESTING_GUIDE.md) — test suite layout, coverage strategy, and how to run/extend the tests.
+- [`docs/superpowers/specs`](docs/superpowers/specs) and [`docs/superpowers/plans`](docs/superpowers/plans) — the assignment spec and implementation plan this codebase was built from.
