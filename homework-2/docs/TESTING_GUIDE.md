@@ -1,6 +1,6 @@
 # Testing Guide
 
-Reference for QA engineers validating the Support Ticket System — how the automated suites are organized, how to run them, what sample data exists, and a manual smoke-test checklist for the running app. For endpoint contracts see [`docs/API_REFERENCE.md`](./API_REFERENCE.md); for system design see [`docs/ARCHITECTURE.md`](./ARCHITECTURE.md).
+Reference for QA engineers on the Support Ticket System's test organization, running tests, using sample fixtures, and a manual smoke-test checklist. For endpoint contracts see [`docs/API_REFERENCE.md`](./API_REFERENCE.md); for system design see [`docs/ARCHITECTURE.md`](./ARCHITECTURE.md).
 
 ## 1. Test pyramid
 
@@ -32,11 +32,11 @@ Run everything from the monorepo root (`homework-2/`):
 - Functions: **85%**
 - Branches: **80%**
 
-As of the latest run, actual coverage is **96.94% statements / 92.39% branches / 95.45% functions / 98.6% lines** — comfortably above every threshold — across **87 tests in 10 suites**, all passing.
+The current suite comprises **89 tests across 10 suites**, all passing, with coverage **96.94% statements / 92.39% branches / 95.45% functions / 98.6% lines** — comfortably above every threshold.
 
 ## 3. Suite map
 
-The table below maps the suite names required by `TASKS.md` (Task 3) to the actual spec files, with real test counts from the current codebase (verified by counting `it(`/`test(` blocks in each file). All suites meet or exceed their assignment minimum.
+The table below maps the suite names required by `TASKS.md` (Task 3) to the actual spec files, with test counts verified by counting `it(` blocks in each file. All suites meet or exceed their assignment minimums.
 
 | Required suite | Actual file | Test count | Assignment minimum |
 |---|---|---|---|
@@ -46,14 +46,14 @@ The table below maps the suite names required by `TASKS.md` (Task 3) to the actu
 | `test_import_json` | `apps/api/src/import/json-parser.spec.ts` | 5 | 5 |
 | `test_import_xml` | `apps/api/src/import/xml-parser.spec.ts` | 7 | 5 |
 | `test_categorization` | `apps/api/src/tickets/classification.service.spec.ts` | 13 | 10 |
-| `test_integration` | `apps/api/test/integration.e2e-spec.ts` | 5 | 5 |
+| `test_integration` | `apps/api/test/integration.e2e-spec.ts` | 6 | 5 |
 | `test_performance` | `apps/api/test/performance.e2e-spec.ts` | 5 | 5 |
 
-Two additional suites exist beyond the required list and round out the 10 suites / 87 tests total: `apps/api/src/import/import-format.spec.ts` (5 tests, covers format-resolution precedence — extension vs. MIME type vs. explicit `?format=`) and `apps/api/src/tickets/tickets.service.spec.ts` (11 tests, covers the in-memory service's CRUD/filtering logic directly, beneath the HTTP layer exercised by `test_ticket_api`).
+Two additional suites complement the required set, bringing the total to 10 suites / 89 tests: `apps/api/src/import/import-format.spec.ts` (5 tests, covers format-resolution precedence — extension vs. MIME type vs. explicit `?format=`) and `apps/api/src/tickets/tickets.service.spec.ts` (12 tests, covers the in-memory service's CRUD/filtering logic directly, beneath the HTTP layer exercised by `test_ticket_api`).
 
 ## 4. Sample data
 
-Fixtures live under `apps/api/test/fixtures/` and are consumed by the import/integration/e2e/performance suites, and are also usable directly for manual testing via the `/import` page.
+Fixtures live under `apps/api/test/fixtures/` and are used by the import, integration, e2e, and performance suites. They are also available directly for manual testing via the `/import` page.
 
 | File | Format | Records | Purpose |
 |---|---|---|---|
@@ -65,7 +65,7 @@ Fixtures live under `apps/api/test/fixtures/` and are consumed by the import/int
 | `invalid/broken.xml` | XML | 1 truncated/unclosed `<ticket>` element | Negative test: triggers a file-level `ImportParseError` ("Malformed XML: …") — a 400 response, no `ImportSummary` is produced. |
 | `invalid/empty.csv` | CSV | 0 bytes | Negative test: triggers `ImportParseError` for an empty upload. |
 
-Regenerate all of the above deterministically with:
+To regenerate all fixtures deterministically, run:
 
 ```bash
 node apps/api/scripts/generate-fixtures.mjs
@@ -92,7 +92,7 @@ Run these against the live app to sanity-check the UI paths the automated suites
 
 ## 6. Performance benchmarks
 
-Measured by running `pnpm --filter @repo/api test -- performance` (`test/performance.e2e-spec.ts`), reading the `[benchmark] …ms` console lines from a clean, all-passing run. Numbers are wall-clock on the developer machine and will vary run to run, but should stay well under threshold.
+Measured by running `pnpm --filter @repo/api test -- performance` (`test/performance.e2e-spec.ts`). Read the `[benchmark] …ms` console output from any passing run. Numbers are wall-clock on the developer machine and will vary slightly between runs; the suite retries once on failure to absorb transient machine-load spikes without masking real regressions.
 
 | Scenario | Threshold | Measured |
 |---|---|---|
@@ -116,4 +116,4 @@ Tests:       5 passed, 5 total
 
 ---
 
-> _Generated with Claude Fable 5 (claude-fable-5)._
+> _Generated with Claude Fable 5 (claude-fable-5); revised and edited with Claude Haiku 4.5 (claude-haiku-4-5)._
