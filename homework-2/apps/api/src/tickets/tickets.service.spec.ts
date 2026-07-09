@@ -55,6 +55,12 @@ describe('TicketsService', () => {
     expect(summary.errors[0].row).toBe(1);
   });
 
+  it('omits field on import errors when the row itself is not an object', () => {
+    const summary = service.importRecords(['not-an-object']);
+    expect(summary.failed).toBe(1);
+    expect(summary.errors[0].field).toBeUndefined();
+  });
+
   it('classifies every imported row when autoClassify is set', () => {
     service.importRecords([base], true);
     const [ticket] = service.findAll();

@@ -36,19 +36,28 @@ export function TicketsPage() {
       await load();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create ticket');
+      throw err;
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    await ticketsApi.remove(id);
-    await load();
+    try {
+      await ticketsApi.remove(id);
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to delete ticket');
+    }
   };
 
   const handleClassify = async (id: string) => {
-    await ticketsApi.autoClassify(id);
-    await load();
+    try {
+      await ticketsApi.autoClassify(id);
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to classify ticket');
+    }
   };
 
   return (

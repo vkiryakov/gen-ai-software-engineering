@@ -11,6 +11,7 @@ export function ImportPage() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const upload = async (file: File) => {
+    if (busy) return;
     setBusy(true);
     setError(null);
     setSummary(null);
@@ -43,6 +44,10 @@ export function ImportPage() {
           onClick={() => inputRef.current?.click()}
           onKeyDown={(e) => {
             if (e.key === 'Enter') inputRef.current?.click();
+            if (e.key === ' ') {
+              e.preventDefault();
+              inputRef.current?.click();
+            }
           }}
           onDragOver={(e) => {
             e.preventDefault();

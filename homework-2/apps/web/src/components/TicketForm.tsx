@@ -27,8 +27,13 @@ export function TicketForm({ onSubmit, submitting }: TicketFormProps) {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    await onSubmit(form);
-    setForm(EMPTY);
+    try {
+      await onSubmit(form);
+      setForm(EMPTY);
+    } catch {
+      // Submission failed; the page already surfaced the error, so just skip
+      // the reset and leave the user's input in place.
+    }
   };
 
   return (

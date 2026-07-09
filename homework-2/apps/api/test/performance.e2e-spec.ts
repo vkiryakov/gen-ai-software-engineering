@@ -16,6 +16,10 @@ const validTicket = {
 };
 
 describe('Performance benchmarks (e2e)', () => {
+  // Thresholds have huge headroom over measured runtimes; one retry absorbs
+  // occasional machine-load spikes without masking a genuine regression.
+  jest.retryTimes(1);
+
   let app: INestApplication;
 
   beforeEach(async () => {

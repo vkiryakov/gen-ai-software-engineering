@@ -68,7 +68,7 @@ export const createTicketSchema = z
 
 export type CreateTicketInput = z.infer<typeof createTicketSchema>;
 
-/** Partial update. All fields optional; empty payloads are rejected downstream. */
+/** Partial update. All fields are optional; an empty payload is a no-op update that only bumps `updated_at`. */
 export const updateTicketSchema = createTicketSchema.partial().omit({ auto_classify: true });
 
 export type UpdateTicketInput = z.infer<typeof updateTicketSchema>;

@@ -133,7 +133,7 @@ export class TicketsService {
         const firstIssue = parsed.error.errors[0];
         summary.errors.push({
           row: index,
-          field: firstIssue?.path.join('.'),
+          field: firstIssue && firstIssue.path.length > 0 ? firstIssue.path.join('.') : undefined,
           message: firstIssue?.message ?? 'Invalid record',
         });
       }

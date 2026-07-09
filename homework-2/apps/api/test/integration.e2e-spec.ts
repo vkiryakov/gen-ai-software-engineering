@@ -61,6 +61,17 @@ describe('Integration workflows (e2e)', () => {
     expect(outage?.priority).toBe('urgent');
   });
 
+  it('bulk imports the 30-row XML happy path', async () => {
+    const res = await http()
+      .post('/tickets/import')
+      .attach('file', fixture('sample_tickets.xml'), { filename: 'sample_tickets.xml', contentType: 'application/xml' })
+      .expect(200);
+    expect(res.body).toMatchObject({ total: 30, successful: 30, failed: 0 });
+
+    const list = await http().get('/tickets').expect(200);
+    expect(list.body).toHaveLength(30);
+  });
+
   it('handles 25 concurrent creates without losing or duplicating tickets', async () => {
     // supertest's `Test` implicitly calls `server.listen(0)` the first time it sees a
     // non-listening server, then closes that server once *its own* request finishes.
