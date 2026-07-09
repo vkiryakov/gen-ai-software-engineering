@@ -6,8 +6,8 @@ Reference documentation for consumers of the Support Ticket API.
 
 - **Base URL:** `http://localhost:3001/api` (all routes below are relative to this; the server mounts a global prefix `/api`, configured in `apps/api/src/main.ts`).
 - **Transport:** plain HTTP/JSON for every endpoint except bulk import, which accepts `multipart/form-data`.
-- **Field casing:** every request and response field is **snake_case** (`customer_id`, `created_at`, `auto_classify`, …) — this matches the shared Zod contracts in `packages/contracts/src`, which are the single source of truth for shapes on both the API and any client.
-- **Schema strictness:** every request-body schema is a Zod `.strict()` object — unknown extra keys are rejected as validation errors, they are not silently dropped.
+- **Field casing:** every request and response field is **snake_case** (`customer_id`, `created_at`, `auto_classify`, …) — this matches the shared Zod contracts in `packages/contracts/src`, the single source of truth for these shapes across both the API and its clients.
+- **Schema strictness:** every request-body schema is a Zod `.strict()` object — unknown extra keys are rejected as validation errors, not silently dropped.
 - **Data store:** the API keeps tickets in an in-memory `Map` (see `apps/api/src/tickets/tickets.service.ts`). Data does not survive a server restart.
 
 ## 2. Data models
@@ -175,7 +175,7 @@ Returned by `POST /tickets/import`.
 
 There is no global exception filter — the API relies on Nest's default `HttpExceptionFilter` behavior, which produces two distinct shapes depending on whether the thrown exception was given a plain string or a custom object. Both were confirmed against the running server (see the verification transcript in the task report).
 
-**Validation errors** — thrown by `ZodValidationPipe` (`apps/api/src/common/zod-validation.pipe.ts`) whenever a request body or query fails its Zod schema. `ZodValidationPipe` throws `new BadRequestException({ message, errors })`; because the exception is constructed with a custom object (not a string), Nest uses that object **verbatim** as the response body — it does **not** inject a `statusCode` key into the JSON body. The HTTP status line is still `400`.
+**Validation errors** — thrown by `ZodValidationPipe` (`apps/api/src/common/zod-validation.pipe.ts`) whenever a request body or query fails its Zod schema. It throws `new BadRequestException({ message, errors })`; because the exception is constructed with a custom object (not a string), Nest uses that object **verbatim** as the response body — it does **not** inject a `statusCode` key into the JSON body. The HTTP status line is still `400`.
 
 ```json
 {
@@ -304,7 +304,7 @@ List/filter tickets, newest first (`created_at` descending).
 
 - **Params:** query — `ListTicketsQuery` (all optional, AND-combined: `category`, `priority`, `status`, `assigned_to`, `search`).
 - **Status codes:** `200 OK`.
-- **Response example:** an array of `Ticket` objects (see Data models). Against the sample dataset used for verification, `category=billing_question&priority=high&search=invoice` returns an empty array, because none of the imported tickets is simultaneously `priority: "high"` — this demonstrates the filters are combined with AND, not OR:
+- **Response example:** an array of `Ticket` objects (see Data models). Against the sample dataset used for verification, the query `category=billing_question&priority=high&search=invoice` returns an empty array because none of the imported tickets is simultaneously `priority: "high"` — demonstrating that the filters are AND-combined, not OR-combined:
   ```json
   []
   ```
@@ -362,7 +362,7 @@ Partially update a ticket.
   ```json
   { "status": "resolved" }
   ```
-- **Response example (200)** — note `status` changed and `resolved_at`/`updated_at` were stamped, everything else is preserved from the existing ticket:
+- **Response example (200)** — note that `status` changed and `resolved_at`/`updated_at` were stamped, while everything else is preserved from the existing ticket:
   ```json
   {
     "id": "0cfd500c-5e03-4f1e-a9ad-39eeab1468e4",
@@ -430,7 +430,7 @@ Re-run the rule-based classifier against an existing ticket's `subject`/`descrip
 
 ## 5. Import formats
 
-All three formats are converted to the same intermediate shape — a list of loosely-typed records — which is then validated row-by-row against `CreateTicketInput`. Conventions are copied from the doc comments in `apps/api/src/import/*.service.ts`.
+All three formats are converted to the same intermediate shape — a list of loosely-typed records — which is then validated row-by-row against `CreateTicketInput`. The conventions below are copied from the doc comments in `apps/api/src/import/*.service.ts`.
 
 ### CSV (`csv-parser.service.ts`)
 
@@ -514,4 +514,4 @@ Verified response: `{"total":1,"successful":1,"failed":0,"errors":[]}`. Invalid 
 
 ---
 
-> _Generated with Claude Fable 5 (claude-fable-5)._
+> _Generated with Claude Fable 5 (claude-fable-5); revised and edited with Claude Opus 4.8 (claude-opus-4-8)._
