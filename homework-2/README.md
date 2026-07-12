@@ -12,7 +12,7 @@ apps/
   api/                 # NestJS 11 — REST API (порт 3001), GET /health
   web/                 # Next.js 16 (App Router, Tailwind) — UI (порт 3000)
 packages/
-  contracts/           # @repo/contracts — zod-схемы и общие типы
+  contracts/           # @repo/contracts — общие типы и zod-схемы (пока заглушка версии)
   eslint-config/       # @repo/eslint-config — общие eslint-пресеты (base, nest)
   typescript-config/   # @repo/typescript-config — общие tsconfig (base, nest, next)
 ```
