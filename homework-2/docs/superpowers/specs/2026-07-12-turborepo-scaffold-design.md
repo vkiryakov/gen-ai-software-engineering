@@ -22,14 +22,13 @@ homework-2/
 ├── package.json            # приватный корень; скрипты dev/build/lint/test через turbo
 ├── pnpm-workspace.yaml     # apps/*, packages/*
 ├── turbo.json              # таски: build (dependsOn ^build), dev (persistent), lint, test
-├── tsconfig.base.json
-├── .gitignore, .prettierrc, .npmrc
+├── .gitignore, .prettierrc
 ├── apps/
 │   ├── api/                # NestJS 11, TypeScript, порт 3001
-│   └── web/                # Next.js 15, App Router, TypeScript, Tailwind, порт 3000
+│   └── web/                # Next.js 16, App Router, TypeScript, Tailwind, порт 3000
 └── packages/
     ├── contracts/          # @repo/contracts — zod, общие типы; пока заглушка index.ts
-    ├── eslint-config/      # @repo/eslint-config — пресеты base / nest / next
+    ├── eslint-config/      # @repo/eslint-config — пресеты base / nest
     └── typescript-config/  # @repo/typescript-config — base / nest / next tsconfig
 ```
 
@@ -43,14 +42,14 @@ homework-2/
 - Зависит от `@repo/contracts`, использует общие eslint/tsconfig пресеты.
 
 **apps/web (Next.js):**
-- App Router, TypeScript, Tailwind, без src-каталога решает генератор (принимаем дефолт).
+- App Router, TypeScript, Tailwind, без каталога `src` (`--no-src-dir`).
 - Стартовая страница запрашивает `GET /health` у API (env `NEXT_PUBLIC_API_URL`, дефолт `http://localhost:3001`) и показывает статус подключения.
 - Зависит от `@repo/contracts`, общие пресеты.
 - Тестов на этапе каркаса нет.
 
 **packages/contracts:** экспортирует заглушку (например, `export const CONTRACTS_VERSION = '0.0.1'`) + установлен zod; наполняется схемами в следующих задачах.
 
-**packages/eslint-config, packages/typescript-config:** стандартный turborepo-паттерн общих конфигов.
+**packages/eslint-config, packages/typescript-config:** стандартный turborepo-паттерн общих конфигов. eslint-config даёт пресеты `base` и `nest`; web оставляет сгенерированный `eslint-config-next` (комбинация двух экземпляров typescript-eslint в одном flat-конфиге вызывает конфликт плагинов).
 
 ## Потоки и ошибки
 
