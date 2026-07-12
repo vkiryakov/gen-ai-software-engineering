@@ -1,18 +1,36 @@
-# 🏦 Homework 1: Banking Transactions API
+# 🎧 Homework 2: Intelligent Customer Support System
 
-> **Student Name**: [Your Name]
-> **Date Submitted**: [Date]
-> **AI Tools Used**: [List tools, e.g., Claude Code, GitHub Copilot]
+> **Student Name**: Volodymyr Kiryakov
+> **AI Tools Used**: Claude Code
 
----
+Turborepo-монорепозиторий: NestJS API + Next.js web + общие пакеты.
 
-## 📋 Project Overview
+## Структура
 
-[Briefly describe your implementation - what you built and the key features]
+```text
+apps/
+  api/                 # NestJS 11 — REST API (порт 3001), GET /health
+  web/                 # Next.js 16 (App Router, Tailwind) — UI (порт 3000)
+packages/
+  contracts/           # @repo/contracts — zod-схемы и общие типы
+  eslint-config/       # @repo/eslint-config — общие eslint-пресеты (base, nest)
+  typescript-config/   # @repo/typescript-config — общие tsconfig (base, nest, next)
+```
 
+## Запуск
 
-<div align="center">
+Требования: Node >= 22, pnpm 10.
 
-*This project was completed as part of the AI-Assisted Development course.*
+```bash
+pnpm install
+pnpm dev        # api на :3001, web на :3000
+```
 
-</div>
+Прочие команды: `pnpm build`, `pnpm lint`, `pnpm test`.
+
+Переменные окружения — см. `apps/api/.env.example` и `apps/web/.env.example`.
+
+## Статус
+
+Каркас монорепозитория. Функциональность тикетов (CRUD, импорт CSV/JSON/XML,
+автоклассификация) — следующие этапы, задание см. в `TASKS.md`.
