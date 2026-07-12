@@ -1,0 +1,4 @@
+subject,customer_name,customer_email,description,category,priority
+Cannot login to account,Alice Smith,alice@example.com,I forgot my password and cannot log in to my account after reset.,account_access,high
+App crashes on startup,Bob Jones,bob@example.com,The mobile app crashes immediately every time I open it on Android.,bug_report,urgent
+Question about invoice,Carol White,carol@example.com,I was charged twice for my subscription this month please check my invoice.,,
