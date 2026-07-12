@@ -1,0 +1,11 @@
+/* Triage — Radius tokens
+ * Restrained, slightly soft. Pills only for status/priority chips. */
+:root {
+  --radius-xs:  3px;
+  --radius-sm:  5px;   /* inputs, badges */
+  --radius-md:  7px;   /* buttons, small cards */
+  --radius-lg:  10px;  /* cards, panels */
+  --radius-xl:  14px;  /* modals, popovers */
+  --radius-2xl: 20px;  /* feature surfaces */
+  --radius-pill: 999px;
+}

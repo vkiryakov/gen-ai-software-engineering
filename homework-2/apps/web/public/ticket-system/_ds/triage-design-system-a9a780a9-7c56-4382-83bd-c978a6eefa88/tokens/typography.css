@@ -1,0 +1,37 @@
+/* Triage — Typography tokens */
+:root {
+  --font-display: 'Schibsted Grotesk', 'Hanken Grotesk', system-ui, sans-serif;
+  --font-sans:    'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale — product UI is dense; defaults are compact but legible.
+     Names describe role, not size. */
+  --text-2xs:  11px;   /* micro labels, table meta */
+  --text-xs:   12px;   /* captions, badges, timestamps */
+  --text-sm:   13px;   /* dense UI, secondary rows */
+  --text-base: 14px;   /* default body / UI text */
+  --text-md:   15px;   /* comfortable reading */
+  --text-lg:   17px;   /* card titles, subject lines */
+  --text-xl:   20px;   /* section headings */
+  --text-2xl:  24px;   /* page titles */
+  --text-3xl:  30px;   /* display small */
+  --text-4xl:  38px;   /* display */
+  --text-5xl:  50px;   /* hero */
+
+  --leading-tight:   1.15;
+  --leading-snug:    1.3;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-extra:    800;
+
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.02em;
+  --tracking-caps:   0.06em;  /* uppercase eyebrows / overlines */
+}

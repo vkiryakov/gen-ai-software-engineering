@@ -1,0 +1,10 @@
+/* Triage — Webfonts
+ * Served via Google Fonts CDN. Not self-hosted (no binaries were provided).
+ * To self-host, drop woff2 files in /assets/fonts and replace this @import
+ * with local @font-face rules pointing at them.
+ *
+ * Display : Schibsted Grotesk  (headings, numerals, marketing)
+ * UI/Body : Hanken Grotesk     (all product chrome + reading text)
+ * Mono    : IBM Plex Mono      (ticket IDs, timestamps, metadata, code)
+ */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
