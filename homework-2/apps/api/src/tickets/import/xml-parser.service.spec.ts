@@ -37,4 +37,8 @@ describe('XmlParserService', () => {
   it('returns an empty array for an empty <tickets> root', () => {
     expect(parser.parse('<tickets></tickets>')).toEqual([]);
   });
+
+  it('returns an empty array when the <tickets> root has no <ticket> children', () => {
+    expect(parser.parse('<tickets><note>no tickets here</note></tickets>')).toEqual([]);
+  });
 });

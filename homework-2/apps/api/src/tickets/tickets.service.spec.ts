@@ -92,6 +92,40 @@ describe('TicketsService', () => {
     expect(result[0].priority).toBe('urgent');
   });
 
+  it('lists tickets filtered by category', () => {
+    service.create({ ...validInput, category: 'billing_question' });
+    service.create({ ...validInput, category: 'bug_report' });
+    const result = service.list({ category: ['billing_question'] });
+    expect(result).toHaveLength(1);
+    expect(result[0].category).toBe('billing_question');
+  });
+
+  it('lists tickets filtered by assigned_to', () => {
+    const created = service.create(validInput);
+    service.update(created.id, { assigned_to: 'agent_1' });
+    service.create(validInput);
+    const result = service.list({ assigned_to: 'agent_1' });
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe(created.id);
+  });
+
+  it('lists only unassigned tickets when unassigned filter is set', () => {
+    const created = service.create(validInput);
+    const other = service.create(validInput);
+    service.update(other.id, { assigned_to: 'agent_1' });
+    const result = service.list({ unassigned: true });
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe(created.id);
+  });
+
+  it('lists tickets filtered by a free-text query across subject/customer/number', () => {
+    const created = service.create({ ...validInput, subject: 'Unique subject about widgets' });
+    service.create({ ...validInput, subject: 'Something else entirely' });
+    const result = service.list({ q: 'widgets' });
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe(created.id);
+  });
+
   it('classifies an existing ticket and persists the result', () => {
     const created = service.create({
       ...validInput,
@@ -103,5 +137,9 @@ describe('TicketsService', () => {
     const refreshed = service.getById(created.id);
     expect(refreshed.category).toBe(result.category);
     expect(refreshed.priority).toBe(result.priority);
+  });
+
+  it('throws NotFoundException when classifying a missing ticket', () => {
+    expect(() => service.classify('missing')).toThrow(NotFoundException);
   });
 });

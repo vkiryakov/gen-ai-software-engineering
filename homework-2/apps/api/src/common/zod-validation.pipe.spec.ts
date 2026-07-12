@@ -23,4 +23,15 @@ describe('ZodValidationPipe', () => {
       expect((e as BadRequestException).message).toContain('name');
     }
   });
+
+  it('falls back to "value" in the error message for a root-level issue with no field path', () => {
+    const rootSchema = z.string();
+    const rootPipe = new ZodValidationPipe(rootSchema);
+    try {
+      rootPipe.transform(12345, metadata);
+      fail('expected transform to throw');
+    } catch (e) {
+      expect((e as BadRequestException).message).toContain('value');
+    }
+  });
 });

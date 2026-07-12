@@ -36,6 +36,12 @@ describe('ImportService', () => {
     expect(() => service.importFile(makeFile('data.txt', 'irrelevant'))).toThrow('Unsupported file type');
   });
 
+  it('throws BadRequestException with an "unknown" label for a file with no extension at all', () => {
+    expect(() => service.importFile(makeFile('ticketsfile', 'irrelevant'))).toThrow(
+      'Unsupported file type ".unknown"',
+    );
+  });
+
   it('imports a valid CSV and reports the correct summary counts', () => {
     const csv = [
       'subject,customer_name,customer_email,description',
@@ -91,6 +97,20 @@ describe('ImportService', () => {
     const [ticket] = ticketsService.list({});
     expect(ticket.category).toBe('feature_request');
     expect(ticket.priority).toBe('low');
+  });
+
+  it('falls back to the subject as the description when a row omits description', () => {
+    const json = JSON.stringify([
+      {
+        subject: 'Subject used as description fallback text',
+        customer_name: 'Sam Rivers',
+        customer_email: 'sam@example.com',
+      },
+    ]);
+    const summary = service.importFile(makeFile('tickets.json', json));
+    expect(summary.imported_count).toBe(1);
+    const [ticket] = ticketsService.list({});
+    expect(ticket.description).toBe('Subject used as description fallback text');
   });
 
   it('imports a valid XML file', () => {

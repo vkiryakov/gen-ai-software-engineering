@@ -1,4 +1,4 @@
-import { ArgumentsHost, BadRequestException, NotFoundException } from '@nestjs/common';
+import { ArgumentsHost, BadRequestException, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import { HttpExceptionFilter } from './http-exception.filter';
 
 function makeHost() {
@@ -34,5 +34,26 @@ describe('HttpExceptionFilter', () => {
     filter.catch(new Error('boom'), host);
     expect(status).toHaveBeenCalledWith(500);
     expect(json).toHaveBeenCalledWith({ error: { message: 'boom' } });
+  });
+
+  it('uses a plain string response body directly as the message', () => {
+    const { host, status, json } = makeHost();
+    filter.catch(new HttpException('plain string body', HttpStatus.BAD_GATEWAY), host);
+    expect(status).toHaveBeenCalledWith(502);
+    expect(json).toHaveBeenCalledWith({ error: { message: 'plain string body' } });
+  });
+
+  it('falls back to exception.message when the response body has no message property', () => {
+    const { host, status, json } = makeHost();
+    filter.catch(new HttpException({ foo: 'bar' }, HttpStatus.BAD_REQUEST), host);
+    expect(status).toHaveBeenCalledWith(400);
+    expect(json).toHaveBeenCalledWith({ error: { message: expect.any(String) } });
+  });
+
+  it('falls back to 500 with a generic message for a non-Error thrown value', () => {
+    const { host, status, json } = makeHost();
+    filter.catch('just a raw string throw', host);
+    expect(status).toHaveBeenCalledWith(500);
+    expect(json).toHaveBeenCalledWith({ error: { message: 'Internal server error.' } });
   });
 });
