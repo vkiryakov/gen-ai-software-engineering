@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <subject>API returning 500 errors</subject>
+    <customer_name>Lena Fischer</customer_name>
+    <customer_email>lena@example.com</customer_email>
+    <description>Since this morning roughly 1 in 5 calls to our endpoint returns a 500 with no body.</description>
+    <category>bug_report</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <subject>Thanks for the quick help</subject>
+    <customer_name>Omar Haddad</customer_name>
+    <customer_email>omar@example.com</customer_email>
+    <description>Just wanted to say thanks, the issue was resolved in minutes, great support team.</description>
+  </ticket>
+</tickets>
