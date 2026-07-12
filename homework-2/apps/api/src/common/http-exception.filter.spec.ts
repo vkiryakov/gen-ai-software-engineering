@@ -47,7 +47,7 @@ describe('HttpExceptionFilter', () => {
     const { host, status, json } = makeHost();
     filter.catch(new HttpException({ foo: 'bar' }, HttpStatus.BAD_REQUEST), host);
     expect(status).toHaveBeenCalledWith(400);
-    expect(json).toHaveBeenCalledWith({ error: { message: expect.any(String) } });
+    expect(json).toHaveBeenCalledWith({ error: { message: 'Http Exception' } });
   });
 
   it('falls back to 500 with a generic message for a non-Error thrown value', () => {
