@@ -6,7 +6,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "jest --rootDir src --testRegex '.*\\.spec\\.ts$' --preset ts-jest --testEnvironment node"
   },
   "dependencies": {
     "zod": "^4.0.0"
@@ -14,7 +15,10 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@types/jest": "^30.0.0",
     "eslint": "^9.30.0",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.11",
     "typescript": "^5.9.0"
   }
 }
