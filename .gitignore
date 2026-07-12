@@ -56,3 +56,6 @@ temp/
 .Spotlight-V100
 .Trashes
 ehthumbs.db
+
+# Git worktrees (local scratch, not part of history)
+.worktrees/
