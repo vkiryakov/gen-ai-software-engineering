@@ -10,14 +10,18 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 import { CreateTicketInput, CreateTicketInputSchema, UpdateTicketInput, UpdateTicketInputSchema } from '@repo/contracts';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { EnvelopeInterceptor } from '../common/envelope.interceptor';
 import { ZodValidationPipe } from '../common/zod-validation.pipe';
 import { TicketsService } from './tickets.service';
+import { ImportService } from './import/import.service';
 
 interface TicketsQuery {
   status?: string;
@@ -32,7 +36,10 @@ interface TicketsQuery {
 @UseGuards(JwtAuthGuard)
 @UseInterceptors(EnvelopeInterceptor)
 export class TicketsController {
-  constructor(protected readonly ticketsService: TicketsService) {}
+  constructor(
+    protected readonly ticketsService: TicketsService,
+    private readonly importService: ImportService,
+  ) {}
 
   @Get()
   list(@Query() query: TicketsQuery) {
@@ -87,5 +94,12 @@ export class TicketsController {
   @Post(':id/auto-classify')
   autoClassify(@Param('id') id: string) {
     return this.ticketsService.classify(id);
+  }
+
+  @Post('import')
+  @HttpCode(HttpStatus.CREATED)
+  @UseInterceptors(FileInterceptor('file', { storage: memoryStorage() }))
+  importTickets(@UploadedFile() file: Express.Multer.File) {
+    return this.importService.importFile(file);
   }
 }

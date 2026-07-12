@@ -167,4 +167,41 @@ describe('Tickets (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect(201);
   });
+
+  it('imports a valid CSV file via multipart upload', async () => {
+    const csv = [
+      'subject,customer_name,customer_email,description',
+      'Cannot log in,Alice Smith,alice@example.com,I forgot my password and cannot log in at all.',
+    ].join('\n');
+    const res = await request(app.getHttpServer())
+      .post('/tickets/import')
+      .set('Authorization', `Bearer ${token}`)
+      .attach('file', Buffer.from(csv), 'tickets.csv')
+      .expect(201);
+    expect(res.body.data.imported_count).toBe(1);
+    expect(res.body.data.failed_count).toBe(0);
+  });
+
+  it('returns a 400 with per-row errors for a partially invalid CSV', async () => {
+    const csv = [
+      'subject,customer_name,customer_email,description',
+      ',Bob Jones,not-an-email,short',
+    ].join('\n');
+    const res = await request(app.getHttpServer())
+      .post('/tickets/import')
+      .set('Authorization', `Bearer ${token}`)
+      .attach('file', Buffer.from(csv), 'tickets.csv')
+      .expect(201);
+    expect(res.body.data.failed_count).toBe(1);
+    expect(res.body.data.errors[0].row).toBe(2);
+  });
+
+  it('rejects an unsupported file extension', async () => {
+    const res = await request(app.getHttpServer())
+      .post('/tickets/import')
+      .set('Authorization', `Bearer ${token}`)
+      .attach('file', Buffer.from('irrelevant'), 'tickets.txt')
+      .expect(400);
+    expect(res.body.error.message).toContain('Unsupported file type');
+  });
 });
