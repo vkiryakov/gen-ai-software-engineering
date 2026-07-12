@@ -70,6 +70,18 @@ describe('TicketsService', () => {
     expect(updated.resolved_at).toBe('2026-02-02T00:00:00.000Z');
   });
 
+  it('merges a partial metadata patch onto existing metadata instead of replacing it', () => {
+    const created = service.create({
+      ...validInput,
+      metadata: { source: 'email', browser: 'Firefox', device_type: 'mobile' },
+    });
+    expect(created.metadata).toEqual({ source: 'email', browser: 'Firefox', device_type: 'mobile' });
+
+    const updated = service.update(created.id, { metadata: { browser: 'Chrome' } });
+
+    expect(updated.metadata).toEqual({ source: 'email', browser: 'Chrome', device_type: 'mobile' });
+  });
+
   it('throws NotFoundException when updating a missing ticket', () => {
     expect(() => service.update('missing', { priority: 'high' })).toThrow(NotFoundException);
   });
