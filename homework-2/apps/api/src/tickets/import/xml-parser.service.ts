@@ -21,6 +21,10 @@ export class XmlParserService {
     if (root === undefined) {
       throw new BadRequestException('XML file must have a root <tickets><ticket>...</ticket></tickets> structure.');
     }
+    if (typeof root === 'string') {
+      // Empty <tickets></tickets> root with no <ticket> children.
+      return [];
+    }
 
     const rawTickets = root.ticket;
     const list = Array.isArray(rawTickets) ? rawTickets : rawTickets ? [rawTickets] : [];

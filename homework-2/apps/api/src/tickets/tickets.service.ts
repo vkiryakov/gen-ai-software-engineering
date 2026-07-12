@@ -103,10 +103,15 @@ export class TicketsService {
     // The rest-destructure below intentionally drops `auto_classify` from the
     // patch before forwarding it to the repository (it's a request-only flag,
     // not a persisted field). The discarded binding is unused by design.
+    // `metadata` is also pulled out separately because `UpdateTicketInput`'s
+    // metadata sub-fields are all optional, while `StoredTicket.metadata`
+    // must always be fully populated — so a partial patch is merged onto the
+    // existing metadata rather than forwarded as-is.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { auto_classify: _autoClassify, ...patchWithoutFlag } = patch;
+    const { auto_classify: _autoClassify, metadata: metadataPatch, ...patchWithoutFlag } = patch;
     const updated = this.repository.update(id, {
       ...patchWithoutFlag,
+      ...(metadataPatch ? { metadata: { ...existing.metadata, ...metadataPatch } } : {}),
       status: nextStatus,
       resolved_at: resolvedAt,
       updated_at: now,
