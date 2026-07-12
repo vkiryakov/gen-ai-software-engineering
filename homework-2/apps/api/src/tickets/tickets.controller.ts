@@ -24,12 +24,18 @@ import { TicketsService } from './tickets.service';
 import { ImportService } from './import/import.service';
 
 interface TicketsQuery {
-  status?: string;
-  priority?: string;
-  category?: string;
+  status?: string | string[];
+  priority?: string | string[];
+  category?: string | string[];
   assigned_to?: string;
   unassigned?: string;
   q?: string;
+}
+
+function toStringArray(value: string | string[] | undefined): string[] | undefined {
+  if (value === undefined) return undefined;
+  const joined = Array.isArray(value) ? value.join(',') : value;
+  return joined.split(',').filter(Boolean);
 }
 
 @Controller('tickets')
@@ -44,9 +50,9 @@ export class TicketsController {
   @Get()
   list(@Query() query: TicketsQuery) {
     return this.ticketsService.list({
-      status: query.status?.split(',').filter(Boolean),
-      priority: query.priority?.split(',').filter(Boolean),
-      category: query.category?.split(',').filter(Boolean),
+      status: toStringArray(query.status),
+      priority: toStringArray(query.priority),
+      category: toStringArray(query.category),
       assigned_to: query.assigned_to,
       unassigned: query.unassigned === 'true',
       q: query.q,

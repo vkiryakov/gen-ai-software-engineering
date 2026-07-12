@@ -16,7 +16,12 @@ export class XmlParserService {
       throw new BadRequestException(`Malformed XML file: ${validation.err.msg}`);
     }
 
-    const doc = this.parser.parse(text) as { tickets?: { ticket?: unknown } | string };
+    let doc: { tickets?: { ticket?: unknown } | string };
+    try {
+      doc = this.parser.parse(text) as { tickets?: { ticket?: unknown } | string };
+    } catch (e) {
+      throw new BadRequestException(`Malformed XML file: ${(e as Error).message}`);
+    }
     const root = doc.tickets;
     if (root === undefined) {
       throw new BadRequestException('XML file must have a root <tickets><ticket>...</ticket></tickets> structure.');

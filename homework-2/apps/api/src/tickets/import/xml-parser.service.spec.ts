@@ -41,4 +41,12 @@ describe('XmlParserService', () => {
   it('returns an empty array when the <tickets> root has no <ticket> children', () => {
     expect(parser.parse('<tickets><note>no tickets here</note></tickets>')).toEqual([]);
   });
+
+  it('throws BadRequestException for XML that passes validation but fails to parse (external entity)', () => {
+    // fast-xml-parser's XMLValidator considers this well-formed, but the parser itself
+    // rejects external entities during the actual parse pass ("External entities are
+    // not supported"), so this exercises the try/catch around this.parser.parse().
+    const xxe = '<!DOCTYPE ticket [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><tickets>&xxe;</tickets>';
+    expect(() => parser.parse(xxe)).toThrow(BadRequestException);
+  });
 });

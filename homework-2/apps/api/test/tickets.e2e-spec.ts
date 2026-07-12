@@ -96,6 +96,33 @@ describe('Tickets (e2e)', () => {
     expect(res.body.data).toHaveLength(0);
   });
 
+  it('filters the list by repeated status query params without a 500', async () => {
+    const newTicket = await request(app.getHttpServer())
+      .post('/tickets')
+      .set('Authorization', `Bearer ${token}`)
+      .send(validTicket);
+
+    const otherTicket = await request(app.getHttpServer())
+      .post('/tickets')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ ...validTicket, customer_email: 'bob@example.com' });
+    await request(app.getHttpServer())
+      .patch(`/tickets/${otherTicket.body.data.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ status: 'in_progress' })
+      .expect(200);
+
+    // supertest/qs serializes a repeated key as an array (query.status becomes
+    // ['new', 'resolved']), which previously crashed `.split(',')` with a 500.
+    const res = await request(app.getHttpServer())
+      .get('/tickets?status=new&status=resolved')
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200);
+    const ids = res.body.data.map((t: { id: string }) => t.id);
+    expect(ids).toContain(newTicket.body.data.id);
+    expect(ids).not.toContain(otherTicket.body.data.id);
+  });
+
   it('updates a ticket via PATCH', async () => {
     const created = await request(app.getHttpServer())
       .post('/tickets')
@@ -182,7 +209,7 @@ describe('Tickets (e2e)', () => {
     expect(res.body.data.failed_count).toBe(0);
   });
 
-  it('returns a 400 with per-row errors for a partially invalid CSV', async () => {
+  it('returns 201 with per-row errors for a partially invalid CSV', async () => {
     const csv = [
       'subject,customer_name,customer_email,description',
       ',Bob Jones,not-an-email,short',
