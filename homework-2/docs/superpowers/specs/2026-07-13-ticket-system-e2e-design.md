@@ -1,88 +1,121 @@
-# Ticket System UI: подключение к реальному API — Design
+# Ticket System UI: полноценный Next.js фронтенд — Design
 
-**Дата:** 2026-07-13
-**Область:** Task 5 из `TASKS.md` — превратить существующий статический прототип (`apps/web/public/ticket-system/`, коммит `666f23a`) в реально работающий фронтенд, подключённый к `apps/api`, и сделать его главной страницей `apps/web`. Бэкенд (`apps/api`) не меняется — см. `docs/superpowers/specs/2026-07-12-ticket-api-design.md`.
+**Дата:** 2026-07-13 (ревизия: заменяет первую версию того же дня — переезд с "обёртки над статикой" на полный переезд в Next.js/TSX)
+**Область:** Task 5 из `TASKS.md` — реализовать настоящий React/Next.js фронтенд, подключённый к `apps/api`, взамен статического прототипа на React UMD + Babel Standalone (`apps/web/public/ticket-system/`, коммит `666f23a`). Бэкенд (`apps/api`) не меняется — см. `docs/superpowers/specs/2026-07-12-ticket-api-design.md`.
 
-## Контекст
+## Контекст и решение
 
-Прототип уже полностью реализован: React 18 (UMD) + Babel Standalone, design system "Triage" (`_ds/`), компоненты `Sidebar`/`TicketList`/`TicketDetail`/`TicketFormModal`/`ImportModal`, REST-клиент `app/api.js` под контракт, который 1:1 совпадает с уже работающим `apps/api` (`{ data }`/`{ error: { message } }`, `/tickets`, `/tickets/:id/classify`, `/tickets/import`). Сейчас он:
+Статический прототип (`public/ticket-system/`) послужил эталоном UX и визуального языка ("Triage" design system), но:
+- собран на React 18 UMD + Babel Standalone (транспиляция JSX в браузере, без сборки) — не то, что ожидается от "нормального Next-приложения";
+- работает в mock-режиме (`app/mock-api.js`) с фейковым логином.
 
-- обслуживается как статический файл из `public/ticket-system/Ticket System.html`, не связан с роутингом Next.js — на `http://localhost:3000/` до сих пор висит health-check заглушка (`apps/web/app/page.tsx`);
-- работает в mock-режиме (`app/config.js`: `mock: true`), с фейковым логином (любой email/пароль проходит, кроме буквального `wrong`).
+**Решение:** переносим всё в `apps/web/app` как настоящие `.tsx`-компоненты, компилируемые Next.js. Моки убираем полностью — экран логина и все операции с тикетами всегда бьют в реальный `apps/api`. `public/ticket-system/` удаляется целиком после переноса (весь функционал переезжает в `app/`; держать параллельный дубль на другом стеке — источник путаницы и дрейфа).
 
-Бэкенд полностью готов: `POST /auth/login` с единственным пользователем `admin@ignore.com` / `123`, JWT, CORS уже открыт для `http://localhost:3000`.
+Дизайн-система не пишется с нуля: `_ds_bundle.js` — не минифицированный, конкатенированный из читаемых JSX-исходников (см. манифест `@ds-bundle` в первой строке файла: 21 компонент с путями типа `components/buttons/Button.jsx`). Каждый примитив портируется в `.tsx` построчно с сохранением инлайн-стилей и CSS custom properties — визуальный результат не должен отличаться. Токены (`tokens/*.css`, `styles.css`) — обычный CSS, переносятся файлами без изменений.
 
 ## Архитектура
 
 ```
 apps/web/
 ├── app/
-│   └── page.tsx                  # было: health-check; станет: серверная обёртка, печатает
-│                                    window.__API_BASE_URL__ и подключает ассеты ticket-system
-│                                    через next/script + <link>, рендерит <div id="root">
-└── public/ticket-system/
-    ├── Ticket System.html        # не трогаем — самостоятельная точка входа остаётся рабочей
-    └── app/
-        ├── config.js             # default apiBaseUrl берёт window.__API_BASE_URL__, mock: false
-        ├── api.js                # + login(email, password); request() отдельно обрабатывает 401
-        └── App.jsx                # НОВЫЙ файл — код inline-скрипта из Ticket System.html
-                                     (App/LoginScreen/AgentApp/...), вынесен, чтобы им мог
-                                     поделиться и статичный html, и Next.js страница
+│   ├── layout.tsx                 # добавляет <link> на design-tokens.css (глобальные токены)
+│   ├── globals.css                 # + @import design-tokens.css, инлайн responsive-правила
+│   │                                  из <style> Ticket System.html (breakpoint 860px)
+│   └── page.tsx                    # server component: читает NEXT_PUBLIC_API_URL,
+│                                      рендерит <TriageApp apiBaseUrl={API_URL} />
+├── components/ticket-system/
+│   ├── TriageApp.tsx                # 'use client' — корневой стейт-машин (login → app),
+│   │                                  = нынешний App()+AgentApp() из инлайн-скрипта
+│   ├── LoginScreen.tsx
+│   ├── TopBar.tsx
+│   ├── Toast.tsx
+│   ├── Sidebar.tsx
+│   ├── TicketList.tsx              # + TicketRow, FilterPopover (внутренние, не экспортируются)
+│   ├── TicketDetail.tsx            # + PropRow, ClassificationPanel, EmptyDetail
+│   ├── TicketFormModal.tsx
+│   ├── ImportModal.tsx
+│   └── ds/                         # порт design-system примитивов из _ds_bundle.js
+│       ├── Button.tsx, IconButton.tsx
+│       ├── Input.tsx, Textarea.tsx, Select.tsx, Checkbox.tsx, FieldLabel.tsx
+│       ├── Badge.tsx, PriorityTag.tsx, StatusTag.tsx, Avatar.tsx
+│       ├── Banner.tsx, Spinner.tsx, Tooltip.tsx
+│       ├── Tabs.tsx, NavItem.tsx
+│       └── Modal.tsx
+├── lib/ticket-system/
+│   ├── api.ts                      # типизированный REST-клиент (fetch), включает login()
+│   ├── constants.ts                 # = TRIAGE_META: labels, STATUS_TAG-маппинг, queues, relative()
+│   │                                  категории/приоритеты/статусы — литералы из @repo/contracts enums,
+│   │                                  не дублируем строки руками
+│   └── types.ts                     # локальные UI-типы (Toast, QueueId, ...), Ticket/Ticket* — из @repo/contracts
+└── public/
+    └── (design-tokens.css, tokens/*.css — статические файлы, см. ниже)
 ```
 
-`Ticket System.html` вместо инлайн-скрипта подключает `app/App.jsx` тем же `<script type="text/babel" src="...">` — поведение файла не меняется, просто код переезжает в отдельный файл.
+`public/ticket-system/` целиком удаляется (html, app/*.jsx, mock-api.js, README.md, `_ds/` бандл) — токен-CSS переносится (не копируется бинарно, а переезжает) в `apps/web/public/design-tokens/`, на него ссылается `app/layout.tsx`.
 
-## Изменения по файлам
+## Design system: как портируем примитивы
 
-**`app/config.js`** — `DEFAULTS.apiBaseUrl` берёт `window.__API_BASE_URL__` (если задан), иначе прежний плейсхолдер; `DEFAULTS.mock = false`. Значение из `localStorage` по-прежнему имеет приоритет (agent может руками переключить обратно на mock — ничего не убираем).
+Для каждого из 21 компонента в манифесте `_ds_bundle.js` беру соответствующий блок кода (между `// components/.../X.jsx` и следующим таким комментарием), перевожу IIFE-обёртку и `window.TriageDesignSystem_a9a780.X = X` в обычный `export function X(props: XProps) { ... }`, добавляю пропсам TypeScript-типы по фактическому использованию в `Sidebar.jsx`/`TicketList.jsx`/`TicketDetail.jsx`/`TicketFormModal.jsx`/`ImportModal.jsx` (там видно каждый вызов с конкретными пропсами). Все `var(--...)` CSS custom properties остаются как есть — они определены в перенесённых `tokens/*.css`, фреймворк-агностичны.
 
-**`app/api.js`** — добавляется:
-```js
-async login(email, password) {
-  const json = await request('/auth/login', { method: 'POST', body: { email, password } });
-  return json.data; // { token, user: { email } }
-},
+**Иконки.** Заменяю `<i data-lucide="x" style={{...}} />` + глобальный `window.lucide.createIcons()` (вызывался в `useEffect` после каждого рендера) на `lucide-react` (добавляется в зависимости `apps/web/package.json`) — те же имена иконок как именованные экспорты (`X`, `Search`, `Upload`, ...), `size`/`className` вместо ручного `style={{ width, height }}`. Убирает необходимость в CDN-скрипте и ручном re-run для динамически появляющихся иконок (частый источник багов в исходном прототипе — иконки в модалках иногда не отрисовывались без лишнего `createIcons()`).
+
+**Шрифты.** `tokens/fonts.css` сейчас тянет Google Fonts через `@import` — оставляем как есть (не самоцель этой задачи оптимизировать через `next/font`).
+
+## API-клиент (`lib/ticket-system/api.ts`)
+
+Прямой порт `app/api.js` без mock-ветки, с типами из `@repo/contracts`:
+
+```ts
+import type { Ticket, CreateTicketInput, UpdateTicketInput } from '@repo/contracts';
+
+export class ApiError extends Error { constructor(message: string, public status?: number) { super(message); } }
+
+export function createApiClient(baseUrl: string, getToken: () => string | null) {
+  async function request<T>(path: string, init?: RequestInit): Promise<T> { /* ... */ }
+  return {
+    login(email: string, password: string) { /* POST /auth/login, без токена */ },
+    listTickets(filters: TicketFilters) { /* GET /tickets?... */ },
+    getTicket(id: string) { /* ... */ },
+    createTicket(input: CreateTicketInput) { /* ... */ },
+    updateTicket(id: string, patch: UpdateTicketInput) { /* ... */ },
+    deleteTicket(id: string) { /* ... */ },
+    classifyTicket(id: string) { /* ... */ },
+    importTickets(file: File) { /* multipart/form-data */ },
+  };
+}
 ```
-без mock-ветки (логин всегда бьёт в реальный бэкенд — иначе демо-проверку пароля "wrong" пришлось бы держать вечно). `request()` при статусе 401 дополнительно кидает `window.TriageConfig.set({ token: '' })`, чтобы протухший токен не завис в localStorage.
 
-**`app/App.jsx`** (новый, = нынешний inline-скрипт из `Ticket System.html`, строки 63–393) — правки внутри:
-- `LoginScreen.handleSubmit`: вместо `if (password === 'wrong')` вызывает `window.TriageAPI.login(email, password)`, при успехе кладёт `token` через `TriageConfig.set`, при ошибке показывает `e.message` в `Banner` (реальный текст с бэкенда — "Invalid email or password.").
-- `App`: `onLogout` дополнительно чистит токен (`TriageConfig.set({ token: '' })`).
-- Всё остальное (`AgentApp`, `TopBar`, `Toast`, layout) — без изменений.
+401 в `request()` — кидает специальный `ApiError` со статусом 401; `TriageApp` перехватывает его в каждом обработчике и делает logout (сброс токена + возврат на `LoginScreen`), а не просто показывает баннер.
 
-**`apps/web/app/page.tsx`** — серверный компонент (как сейчас), но вместо health-check рендерит клиентскую обёртку:
-```tsx
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
-// <link> токены дизайн-системы и styles.css из /ticket-system/_ds/...
-// инлайн <script>window.__API_BASE_URL__ = "...";</script> — ДО config.js
-// next/script, все со strategy="afterInteractive" (Next.js гарантирует порядок
-// выполнения скриптов с одинаковой strategy в порядке объявления):
-//   react, react-dom, babel standalone, _ds_bundle.js, lucide,
-//   app/config.js, constants.js, mock-api.js, api.js,
-//   Sidebar.jsx, TicketList.jsx, TicketDetail.jsx, TicketFormModal.jsx, ImportModal.jsx (type="text/babel"),
-//   App.jsx (type="text/babel")
-// <div id="root" />
-```
-Значение `API_URL` печатается через `JSON.stringify`, а не интерполируется в шаблонную строку без экранирования — иначе это XSS-вектор через переменную окружения (маловероятный, но дешёвый в исправлении).
+## Аутентификация и состояние
 
-Старый health-check контент (пинг `/health`, indicator ok/unavailable) — удаляется из `page.tsx`; сам факт того, что бэкенд жив, теперь виден по тому, что список тикетов реально грузится.
+`TriageApp.tsx` держит стейт-машину `'login' | 'app'` (как сейчас `App()`), плюс `token`/`email` в `useState`, синхронизированные с `localStorage` (ключ `triage_token`, без обёртки `TriageConfig` — она была нужна для mock/live переключателя, которого больше нет). При маунте — если в `localStorage` есть токен, сразу открывает `'app'` (пропускает логин между визитами), а не всегда стартует с экрана логина, как было в прототипе. Логаут чистит `localStorage` и возвращает на `'login'`.
+
+`apiBaseUrl` приходит пропом с сервера (`process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001'`) — без глобального `window.__API_BASE_URL__`, это был артефакт схемы "статика + инъекция", здесь просто React-проп.
+
+## Responsive-поведение
+
+CSS-правила из `<style>` в `Ticket System.html` (drawer-сайдбар и стек list/detail на `max-width: 860px`) переезжают в `globals.css` как есть (те же классы `.triage-sidebar`, `.triage-mobile-only`, `.triage-sidebar-backdrop`, `.triage-list-pane`, `.triage-detail-pane`, `.triage-filter-popover`, `.triage-collapse-toggle` — компоненты уже расставляют эти классы, логика не меняется).
 
 ## Известное ограничение
 
-Очередь "Assigned to me" в `Sidebar` фильтрует тикеты по жёстко зашитому id `'priya'` (`TRIAGE_META.agents`) — у бэкенда нет модели агентов, `assigned_to` это просто строка. Очередь останется рабочей только для тикетов, у которых `assigned_to` руками выставлен в `'priya'`. Полноценную систему агентов/назначений не строим — вне объёма ДЗ. Отмечаем это в README прототипа.
+Очередь "Assigned to me" и вкладка "Assigned to me" в `TicketList` фильтруют по жёстко зашитому id `'priya'` — у бэкенда нет модели агентов, `assigned_to` в API это произвольная строка. Оставляем как есть (соответствует прототипу), фиксируем в README как заведомое ограничение — полноценную систему агентов/пользователей не строим, вне объёма ДЗ.
 
 ## Проверка
 
-Ручной прогон (нет тестовой обвязки — это статический UI без сборки, есть только браузерная проверка):
+Нет автотестов для фронтенда (Task 5 в `TASKS.md` их не требует — тестовые требования Task 3/6 касаются только `apps/api`). Проверка вручную:
 1. `pnpm dev` в `apps/api` и `apps/web` параллельно.
-2. Открыть `http://localhost:3000/` — должен появиться экран логина Triage (не health-check).
-3. Залогиниться `admin@ignore.com` / `123` → успех → список тикетов (изначально пустой — бэкенд стартует с пустым хранилищем).
-4. Создать тикет через "New ticket", отредактировать, вызвать Classify, импортировать `test/fixtures/tickets-valid.csv`, удалить один тикет — каждое действие должно бить в реальный API (Network-таб) и не падать в mock.
-5. Неверный пароль → баннер с реальным текстом ошибки от `/auth/login`.
-6. Logout → возврат на экран логина, токен не должен переживать логаут (проверить localStorage).
+2. `http://localhost:3000/` → экран логина Triage.
+3. Неверный пароль → баннер с реальным текстом ошибки `/auth/login` (не демо-правило "wrong").
+4. `admin@ignore.com` / `123` → список тикетов (пустой при старте — in-memory хранилище).
+5. Create → Edit → Classify → Apply → Import (`apps/api/test/fixtures/tickets-valid.csv`) → Delete — каждое действие проверяется в Network-табе как реальный запрос к `apps/api`, ответы применяются в UI.
+6. Resize < 860px — drawer-сайдбар, list/detail стек с `showBack`.
+7. Logout → `localStorage` не содержит токен; reload на `app`-шаге без токена → возврат на логин.
+8. `pnpm build` в `apps/web` проходит (типы, лint) — критично, т.к. раньше сборки не было вообще.
 
 ## Вне объёма
 
-- Не переписываем UI-компоненты на TSX — Approach A из брейнсторминга (обёртка вместо переписывания), см. обсуждение в чате.
-- Не строим систему агентов/пользователей.
-- Не убираем `mock-api.js`/переключатель mock — оставляем как аварийный fallback без демо-контента по умолчанию.
+- Система агентов/пользователей (см. ограничение выше).
+- Автотесты фронтенда (не требуются TASKS.md для Task 5).
+- Оптимизация шрифтов через `next/font`, self-hosting шрифтов/иконок.
+- Настройки/переключатель окружений в UI (`apiBaseUrl` — только через env, как и раньше).
