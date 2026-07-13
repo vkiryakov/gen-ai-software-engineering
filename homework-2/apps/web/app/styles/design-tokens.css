@@ -1,0 +1,8 @@
+/* Triage Design System — token entry point. Keep to @import lines only. */
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/radius.css";
+@import "./tokens/elevation.css";
+@import "./tokens/base.css";

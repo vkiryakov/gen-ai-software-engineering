@@ -1,0 +1,16 @@
+[
+  {
+    "subject": "Duplicate charge on my account",
+    "customer_name": "Grace Miller",
+    "customer_email": "grace.miller@example.com",
+    "description": "I noticed two identical charges on the same day for my annual subscription.",
+    "category": "billing_question",
+    "priority": "urgent"
+  },
+  {
+    "subject": "How do I invite teammates?",
+    "customer_name": "Tom Becker",
+    "customer_email": "tom@example.com",
+    "description": "I only see a personal settings page, where do team invites live in the product?"
+  }
+]

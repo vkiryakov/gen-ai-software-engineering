@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Homework 2 — Customer Support System',
-  description: 'Intelligent Customer Support System — turborepo scaffold (NestJS + Next.js)',
+  title: 'Triage — Ticket System',
+  description: 'Customer support ticket management — Next.js frontend for apps/api',
 };
 
 export default function RootLayout({

@@ -1,0 +1,51 @@
+subject,customer_name,customer_email,description,category,priority
+Can't log in to my account,Alice Carter,alice.carter@example.com,I forgot my password and can't access my account no matter how many times I reset it.,account_access,urgent
+2FA code never arrives,Ben Nolan,ben.nolan@example.com,Every time I try to log in the two-factor code text message never arrives on my phone.,account_access,
+Locked out after password change,Chloe Dupree,chloe.dupree@example.com,I changed my password yesterday and now I am locked out and cannot log in at all.,,urgent
+Login page shows a blank screen,Derek Osei,derek.osei@example.com,"The login page just shows a blank white screen, I cannot enter my credential at all.",,
+Need help resetting my password,Elena Petrov,elena.petrov@example.com,I would like to reset my password but the reset email never seems to reach my inbox.,account_access,medium
+App crashes on startup,Farid Haidari,farid.haidari@example.com,"The mobile app crashes immediately every time I open it, right after the splash screen.",technical_issue,high
+Getting a strange error message,Grace Lindqvist,grace.lindqvist@example.com,I keep getting an error message with a stack trace whenever I try to save my settings.,,
+Dashboard not working after update,Hiro Tanaka,hiro.tanaka@example.com,"Since the last update the dashboard is not working, it just shows a spinner forever.",,
+Production down for our whole team,Isabella Rossi,isabella.rossi@example.com,Our production environment is down and nobody on the team can access the service at all.,technical_issue,urgent
+Exception thrown on checkout page,Jonas Weber,jonas.weber@example.com,The checkout page throws an unhandled exception and the browser console shows a crash log.,,
+Question about invoice,Karolina Nowak,karolina.nowak@example.com,"I was charged twice for my subscription this month, please check my invoice history.",,
+Refund request for last payment,Liam O’Connor,liam.o.connor@example.com,"I would like a refund for the payment I made last week, the service was unavailable.",billing_question,medium
+Subscription billing seems wrong,Mei Lin,mei.lin@example.com,"My subscription billing amount changed without notice, can someone clarify this charge.",,
+Important billing discrepancy,Noah Bergstrom,noah.bergstrom@example.com,"This is important, our invoice total does not match the agreed contract amount at all.",billing_question,high
+Where can I find my invoice history,Olivia Marsh,olivia.marsh@example.com,I need to download my invoice history for accounting purposes but cannot find the page.,,
+Suggestion for dark mode,Pavel Sokolov,pavel.sokolov@example.com,"Just a suggestion, it would be great to have a dark mode theme option in settings.",feature_request,low
+Feature request: bulk export,Quinn Fitzgerald,quinn.fitzgerald@example.com,This is a feature request for a bulk export button so we can download many records at once.,,
+Enhancement idea for search,Rosa Delgado,rosa.delgado@example.com,"I have an enhancement idea, the search could support filtering by multiple tags together.",,
+Would love keyboard shortcuts,Samuel Okafor,samuel.okafor@example.com,I would love to see keyboard shortcuts added for navigating between tickets quickly.,feature_request,low
+Roadmap question about integrations,Tara Sundberg,tara.sundberg@example.com,"Is there a roadmap item for a Slack integration, that would really help our workflow.",,
+Bug: totals miscalculated,Umar Siddiqui,umar.siddiqui@example.com,"Steps to reproduce: add three items to cart, apply a coupon, the total is miscalculated.",bug_report,medium
+Defect in the export CSV,Valentina Cruz,valentina.cruz@example.com,"There is a defect in the exported CSV file, the date column is always off by one day.",,
+Reproducible crash on filter change,William Brandt,william.brandt@example.com,"I can reproduce this every time, changing the filter dropdown crashes the ticket list.",,
+Stack trace visible to end users,Ximena Torres,ximena.torres@example.com,"A stack trace is visible to end users whenever the search returns zero results, a defect.",bug_report,high
+Minor cosmetic bug on profile page,Yusuf Demir,yusuf.demir@example.com,"This is a minor cosmetic issue, the avatar image overlaps the username on the profile page.",bug_report,low
+General feedback about the product,Zara Ahmed,zara.ahmed@example.com,"Just wanted to share some general feedback, overall the product experience is quite good.",,
+Thanks for the quick help,Aiden Murphy,aiden.murphy@example.com,"Just wanted to say thanks, the issue was resolved quickly by the support team yesterday.",other,low
+Question about data retention policy,Beatriz Alves,beatriz.alves@example.com,Could someone clarify how long customer data is retained after an account is closed.,,
+Asking about enterprise pricing,Casper Lindholm,casper.lindholm@example.com,We are evaluating the product for our company and want to ask about enterprise pricing tiers.,,
+Security concern with shared links,Daniela Kowalska,daniela.kowalska@example.com,"This is a security concern, shared ticket links seem to work even after the ticket is closed.",,urgent
+Can't log in to my account,Alice Carter 2,alice.carter2@example.com,I forgot my password and can't access my account no matter how many times I reset it.,account_access,urgent
+2FA code never arrives,Ben Nolan 2,ben.nolan2@example.com,Every time I try to log in the two-factor code text message never arrives on my phone.,account_access,
+Locked out after password change,Chloe Dupree 2,chloe.dupree2@example.com,I changed my password yesterday and now I am locked out and cannot log in at all.,,urgent
+Login page shows a blank screen,Derek Osei 2,derek.osei2@example.com,"The login page just shows a blank white screen, I cannot enter my credential at all.",,
+Need help resetting my password,Elena Petrov 2,elena.petrov2@example.com,I would like to reset my password but the reset email never seems to reach my inbox.,account_access,medium
+App crashes on startup,Farid Haidari 2,farid.haidari2@example.com,"The mobile app crashes immediately every time I open it, right after the splash screen.",technical_issue,high
+Getting a strange error message,Grace Lindqvist 2,grace.lindqvist2@example.com,I keep getting an error message with a stack trace whenever I try to save my settings.,,
+Dashboard not working after update,Hiro Tanaka 2,hiro.tanaka2@example.com,"Since the last update the dashboard is not working, it just shows a spinner forever.",,
+Production down for our whole team,Isabella Rossi 2,isabella.rossi2@example.com,Our production environment is down and nobody on the team can access the service at all.,technical_issue,urgent
+Exception thrown on checkout page,Jonas Weber 2,jonas.weber2@example.com,The checkout page throws an unhandled exception and the browser console shows a crash log.,,
+Question about invoice,Karolina Nowak 2,karolina.nowak2@example.com,"I was charged twice for my subscription this month, please check my invoice history.",,
+Refund request for last payment,Liam O’Connor 2,liam.o.connor2@example.com,"I would like a refund for the payment I made last week, the service was unavailable.",billing_question,medium
+Subscription billing seems wrong,Mei Lin 2,mei.lin2@example.com,"My subscription billing amount changed without notice, can someone clarify this charge.",,
+Important billing discrepancy,Noah Bergstrom 2,noah.bergstrom2@example.com,"This is important, our invoice total does not match the agreed contract amount at all.",billing_question,high
+Where can I find my invoice history,Olivia Marsh 2,olivia.marsh2@example.com,I need to download my invoice history for accounting purposes but cannot find the page.,,
+Suggestion for dark mode,Pavel Sokolov 2,pavel.sokolov2@example.com,"Just a suggestion, it would be great to have a dark mode theme option in settings.",feature_request,low
+Feature request: bulk export,Quinn Fitzgerald 2,quinn.fitzgerald2@example.com,This is a feature request for a bulk export button so we can download many records at once.,,
+Enhancement idea for search,Rosa Delgado 2,rosa.delgado2@example.com,"I have an enhancement idea, the search could support filtering by multiple tags together.",,
+Would love keyboard shortcuts,Samuel Okafor 2,samuel.okafor2@example.com,I would love to see keyboard shortcuts added for navigating between tickets quickly.,feature_request,low
+Roadmap question about integrations,Tara Sundberg 2,tara.sundberg2@example.com,"Is there a roadmap item for a Slack integration, that would really help our workflow.",,

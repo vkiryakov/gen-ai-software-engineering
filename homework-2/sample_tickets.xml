@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <subject>Can't log in to my account</subject>
+    <customer_name>Alice Carter</customer_name>
+    <customer_email>alice.carter@example.com</customer_email>
+    <description>I forgot my password and can't access my account no matter how many times I reset it.</description>
+    <category>account_access</category>
+    <priority>urgent</priority>
+  </ticket>
+  <ticket>
+    <subject>2FA code never arrives</subject>
+    <customer_name>Ben Nolan</customer_name>
+    <customer_email>ben.nolan@example.com</customer_email>
+    <description>Every time I try to log in the two-factor code text message never arrives on my phone.</description>
+    <category>account_access</category>
+  </ticket>
+  <ticket>
+    <subject>Locked out after password change</subject>
+    <customer_name>Chloe Dupree</customer_name>
+    <customer_email>chloe.dupree@example.com</customer_email>
+    <description>I changed my password yesterday and now I am locked out and cannot log in at all.</description>
+    <priority>urgent</priority>
+  </ticket>
+  <ticket>
+    <subject>Login page shows a blank screen</subject>
+    <customer_name>Derek Osei</customer_name>
+    <customer_email>derek.osei@example.com</customer_email>
+    <description>The login page just shows a blank white screen, I cannot enter my credential at all.</description>
+  </ticket>
+  <ticket>
+    <subject>Need help resetting my password</subject>
+    <customer_name>Elena Petrov</customer_name>
+    <customer_email>elena.petrov@example.com</customer_email>
+    <description>I would like to reset my password but the reset email never seems to reach my inbox.</description>
+    <category>account_access</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <subject>App crashes on startup</subject>
+    <customer_name>Farid Haidari</customer_name>
+    <customer_email>farid.haidari@example.com</customer_email>
+    <description>The mobile app crashes immediately every time I open it, right after the splash screen.</description>
+    <category>technical_issue</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <subject>Getting a strange error message</subject>
+    <customer_name>Grace Lindqvist</customer_name>
+    <customer_email>grace.lindqvist@example.com</customer_email>
+    <description>I keep getting an error message with a stack trace whenever I try to save my settings.</description>
+  </ticket>
+  <ticket>
+    <subject>Dashboard not working after update</subject>
+    <customer_name>Hiro Tanaka</customer_name>
+    <customer_email>hiro.tanaka@example.com</customer_email>
+    <description>Since the last update the dashboard is not working, it just shows a spinner forever.</description>
+  </ticket>
+  <ticket>
+    <subject>Production down for our whole team</subject>
+    <customer_name>Isabella Rossi</customer_name>
+    <customer_email>isabella.rossi@example.com</customer_email>
+    <description>Our production environment is down and nobody on the team can access the service at all.</description>
+    <category>technical_issue</category>
+    <priority>urgent</priority>
+  </ticket>
+  <ticket>
+    <subject>Exception thrown on checkout page</subject>
+    <customer_name>Jonas Weber</customer_name>
+    <customer_email>jonas.weber@example.com</customer_email>
+    <description>The checkout page throws an unhandled exception and the browser console shows a crash log.</description>
+  </ticket>
+  <ticket>
+    <subject>Question about invoice</subject>
+    <customer_name>Karolina Nowak</customer_name>
+    <customer_email>karolina.nowak@example.com</customer_email>
+    <description>I was charged twice for my subscription this month, please check my invoice history.</description>
+  </ticket>
+  <ticket>
+    <subject>Refund request for last payment</subject>
+    <customer_name>Liam O’Connor</customer_name>
+    <customer_email>liam.o.connor@example.com</customer_email>
+    <description>I would like a refund for the payment I made last week, the service was unavailable.</description>
+    <category>billing_question</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <subject>Subscription billing seems wrong</subject>
+    <customer_name>Mei Lin</customer_name>
+    <customer_email>mei.lin@example.com</customer_email>
+    <description>My subscription billing amount changed without notice, can someone clarify this charge.</description>
+  </ticket>
+  <ticket>
+    <subject>Important billing discrepancy</subject>
+    <customer_name>Noah Bergstrom</customer_name>
+    <customer_email>noah.bergstrom@example.com</customer_email>
+    <description>This is important, our invoice total does not match the agreed contract amount at all.</description>
+    <category>billing_question</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <subject>Where can I find my invoice history</subject>
+    <customer_name>Olivia Marsh</customer_name>
+    <customer_email>olivia.marsh@example.com</customer_email>
+    <description>I need to download my invoice history for accounting purposes but cannot find the page.</description>
+  </ticket>
+  <ticket>
+    <subject>Suggestion for dark mode</subject>
+    <customer_name>Pavel Sokolov</customer_name>
+    <customer_email>pavel.sokolov@example.com</customer_email>
+    <description>Just a suggestion, it would be great to have a dark mode theme option in settings.</description>
+    <category>feature_request</category>
+    <priority>low</priority>
+  </ticket>
+  <ticket>
+    <subject>Feature request: bulk export</subject>
+    <customer_name>Quinn Fitzgerald</customer_name>
+    <customer_email>quinn.fitzgerald@example.com</customer_email>
+    <description>This is a feature request for a bulk export button so we can download many records at once.</description>
+  </ticket>
+  <ticket>
+    <subject>Enhancement idea for search</subject>
+    <customer_name>Rosa Delgado</customer_name>
+    <customer_email>rosa.delgado@example.com</customer_email>
+    <description>I have an enhancement idea, the search could support filtering by multiple tags together.</description>
+  </ticket>
+  <ticket>
+    <subject>Would love keyboard shortcuts</subject>
+    <customer_name>Samuel Okafor</customer_name>
+    <customer_email>samuel.okafor@example.com</customer_email>
+    <description>I would love to see keyboard shortcuts added for navigating between tickets quickly.</description>
+    <category>feature_request</category>
+    <priority>low</priority>
+  </ticket>
+  <ticket>
+    <subject>Roadmap question about integrations</subject>
+    <customer_name>Tara Sundberg</customer_name>
+    <customer_email>tara.sundberg@example.com</customer_email>
+    <description>Is there a roadmap item for a Slack integration, that would really help our workflow.</description>
+  </ticket>
+  <ticket>
+    <subject>Bug: totals miscalculated</subject>
+    <customer_name>Umar Siddiqui</customer_name>
+    <customer_email>umar.siddiqui@example.com</customer_email>
+    <description>Steps to reproduce: add three items to cart, apply a coupon, the total is miscalculated.</description>
+    <category>bug_report</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <subject>Defect in the export CSV</subject>
+    <customer_name>Valentina Cruz</customer_name>
+    <customer_email>valentina.cruz@example.com</customer_email>
+    <description>There is a defect in the exported CSV file, the date column is always off by one day.</description>
+  </ticket>
+  <ticket>
+    <subject>Reproducible crash on filter change</subject>
+    <customer_name>William Brandt</customer_name>
+    <customer_email>william.brandt@example.com</customer_email>
+    <description>I can reproduce this every time, changing the filter dropdown crashes the ticket list.</description>
+  </ticket>
+  <ticket>
+    <subject>Stack trace visible to end users</subject>
+    <customer_name>Ximena Torres</customer_name>
+    <customer_email>ximena.torres@example.com</customer_email>
+    <description>A stack trace is visible to end users whenever the search returns zero results, a defect.</description>
+    <category>bug_report</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <subject>Minor cosmetic bug on profile page</subject>
+    <customer_name>Yusuf Demir</customer_name>
+    <customer_email>yusuf.demir@example.com</customer_email>
+    <description>This is a minor cosmetic issue, the avatar image overlaps the username on the profile page.</description>
+    <category>bug_report</category>
+    <priority>low</priority>
+  </ticket>
+  <ticket>
+    <subject>General feedback about the product</subject>
+    <customer_name>Zara Ahmed</customer_name>
+    <customer_email>zara.ahmed@example.com</customer_email>
+    <description>Just wanted to share some general feedback, overall the product experience is quite good.</description>
+  </ticket>
+  <ticket>
+    <subject>Thanks for the quick help</subject>
+    <customer_name>Aiden Murphy</customer_name>
+    <customer_email>aiden.murphy@example.com</customer_email>
+    <description>Just wanted to say thanks, the issue was resolved quickly by the support team yesterday.</description>
+    <category>other</category>
+    <priority>low</priority>
+  </ticket>
+  <ticket>
+    <subject>Question about data retention policy</subject>
+    <customer_name>Beatriz Alves</customer_name>
+    <customer_email>beatriz.alves@example.com</customer_email>
+    <description>Could someone clarify how long customer data is retained after an account is closed.</description>
+  </ticket>
+  <ticket>
+    <subject>Asking about enterprise pricing</subject>
+    <customer_name>Casper Lindholm</customer_name>
+    <customer_email>casper.lindholm@example.com</customer_email>
+    <description>We are evaluating the product for our company and want to ask about enterprise pricing tiers.</description>
+  </ticket>
+  <ticket>
+    <subject>Security concern with shared links</subject>
+    <customer_name>Daniela Kowalska</customer_name>
+    <customer_email>daniela.kowalska@example.com</customer_email>
+    <description>This is a security concern, shared ticket links seem to work even after the ticket is closed.</description>
+    <priority>urgent</priority>
+  </ticket>
+</tickets>

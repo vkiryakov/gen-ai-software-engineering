@@ -1,0 +1,97 @@
+/* Triage — Color tokens. Warm-neutral slate base with an indigo "signal" primary. */
+:root {
+  --white: #ffffff;
+  --ink-50:  #f6f7f9;
+  --ink-100: #eef0f4;
+  --ink-150: #e4e7ec;
+  --ink-200: #d6dae2;
+  --ink-300: #b6bdc9;
+  --ink-400: #8b94a3;
+  --ink-500: #6a7383;
+  --ink-600: #515a6a;
+  --ink-700: #3c4351;
+  --ink-800: #2a2f3a;
+  --ink-900: #1d212a;
+  --ink-950: #14171d;
+
+  --brand-50:  #f1f1fd;
+  --brand-100: #e3e2fb;
+  --brand-200: #c9c6f6;
+  --brand-300: #a49dee;
+  --brand-400: #7d72e6;
+  --brand-500: #5a4bd6;
+  --brand-600: #4a3cc0;
+  --brand-700: #3c319e;
+  --brand-800: #322a7f;
+  --brand-900: #2a2566;
+
+  --priority-urgent:      #d22f3a;
+  --priority-urgent-bg:   #fdecee;
+  --priority-urgent-border:#f6c9ce;
+  --priority-high:        #d9631a;
+  --priority-high-bg:     #fdf0e6;
+  --priority-high-border: #f6d4bb;
+  --priority-medium:      #b6820a;
+  --priority-medium-bg:   #fbf3d9;
+  --priority-medium-border:#eddda3;
+  --priority-low:         #2f7ecb;
+  --priority-low-bg:      #e9f1fb;
+  --priority-low-border:  #c3dbf3;
+  --priority-none:        #6a7383;
+  --priority-none-bg:     #eef0f4;
+  --priority-none-border: #d6dae2;
+
+  --status-new:     #5a4bd6;
+  --status-new-bg:  #ecebfb;
+  --status-open:    #2f7ecb;
+  --status-open-bg: #e9f1fb;
+  --status-pending: #b6820a;
+  --status-pending-bg:#fbf3d9;
+  --status-solved:  #1f9d63;
+  --status-solved-bg:#e5f5ed;
+  --status-closed:  #6a7383;
+  --status-closed-bg:#eef0f4;
+
+  --success:      #17935a;
+  --success-bg:   #e5f5ed;
+  --success-border:#b6e2cb;
+  --warning:      #b6820a;
+  --warning-bg:   #fbf3d9;
+  --warning-border:#eddda3;
+  --danger:       #d22f3a;
+  --danger-bg:    #fdecee;
+  --danger-border:#f6c9ce;
+  --info:         #2f7ecb;
+  --info-bg:      #e9f1fb;
+  --info-border:  #c3dbf3;
+
+  --bg-app:        var(--ink-50);
+  --bg-canvas:     var(--white);
+  --surface-card:  var(--white);
+  --surface-sunken:var(--ink-100);
+  --surface-raised:var(--white);
+  --surface-hover: var(--ink-50);
+  --surface-active:var(--ink-100);
+  --surface-selected: var(--brand-50);
+  --surface-inverse: var(--ink-900);
+
+  --text-primary:  var(--ink-900);
+  --text-secondary:var(--ink-600);
+  --text-tertiary: var(--ink-500);
+  --text-disabled: var(--ink-400);
+  --text-inverse:  var(--white);
+  --text-link:     var(--brand-600);
+  --text-brand:    var(--brand-600);
+
+  --border-subtle: var(--ink-150);
+  --border-default:var(--ink-200);
+  --border-strong: var(--ink-300);
+  --border-focus:  var(--brand-500);
+
+  --accent:        var(--brand-500);
+  --accent-hover:  var(--brand-600);
+  --accent-active: var(--brand-700);
+  --accent-soft:   var(--brand-50);
+
+  --focus-ring: color-mix(in oklch, var(--brand-500) 40%, transparent);
+}

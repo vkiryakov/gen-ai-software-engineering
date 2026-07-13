@@ -1,0 +1,50 @@
+[
+  {
+    "subject": "Valid ticket for control",
+    "customer_name": "Valid Customer",
+    "customer_email": "valid@example.com",
+    "description": "This is a perfectly valid ticket used as a control row in the invalid dataset."
+  },
+  {
+    "customer_name": "No Subject",
+    "customer_email": "nosubject@example.com",
+    "description": "This row is missing the required subject field entirely, should fail validation."
+  },
+  {
+    "subject": "Bad email format",
+    "customer_name": "Bad Email",
+    "customer_email": "not-an-email",
+    "description": "This row has an email address that is not in a valid email format at all."
+  },
+  {
+    "subject": "Description too short",
+    "customer_name": "Short Desc",
+    "customer_email": "short@example.com",
+    "description": "short"
+  },
+  {
+    "subject": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "customer_name": "Long Subject",
+    "customer_email": "long@example.com",
+    "description": "This row has a subject field that exceeds the 200 character maximum length limit."
+  },
+  {
+    "subject": "Invalid category value",
+    "customer_name": "Bad Category",
+    "customer_email": "category@example.com",
+    "description": "This row supplies a category value that is not one of the allowed enum options.",
+    "category": "not_a_real_category"
+  },
+  {
+    "subject": "Invalid priority value",
+    "customer_name": "Bad Priority",
+    "customer_email": "priority@example.com",
+    "description": "This row supplies a priority value that is not one of the allowed enum options.",
+    "priority": "super-urgent"
+  },
+  {
+    "subject": "Missing customer name",
+    "customer_email": "noname@example.com",
+    "description": "This row is missing the required customer_name field, should fail validation."
+  }
+]
