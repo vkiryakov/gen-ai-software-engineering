@@ -1,0 +1,18 @@
+/* Triage — Elevation / shadow & motion tokens */
+:root {
+  --shadow-xs: 0 1px 2px rgba(20, 23, 29, 0.05);
+  --shadow-sm: 0 1px 2px rgba(20, 23, 29, 0.06), 0 1px 3px rgba(20, 23, 29, 0.05);
+  --shadow-md: 0 2px 4px rgba(20, 23, 29, 0.06), 0 4px 10px rgba(20, 23, 29, 0.07);
+  --shadow-lg: 0 4px 8px rgba(20, 23, 29, 0.06), 0 12px 28px rgba(20, 23, 29, 0.12);
+  --shadow-xl: 0 8px 16px rgba(20, 23, 29, 0.08), 0 24px 56px rgba(20, 23, 29, 0.18);
+  --shadow-focus: 0 0 0 3px var(--focus-ring);
+  --shadow-inset: inset 0 1px 2px rgba(20, 23, 29, 0.06);
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-instant: 80ms;
+  --dur-fast:    130ms;
+  --dur-base:    200ms;
+  --dur-slow:    320ms;
+}

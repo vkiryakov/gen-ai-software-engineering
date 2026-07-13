@@ -1,0 +1,22 @@
+/* Triage agent app — responsive layout rules (drawer sidebar, stacked panes
+   below 860px). Classes are applied directly by Sidebar/TicketList/TicketDetail. */
+.triage-mobile-only { display: none; }
+.triage-sidebar-backdrop { display: none; }
+
+@media (max-width: 860px) {
+  .triage-mobile-only { display: inline-flex !important; }
+  .triage-sidebar {
+    position: fixed; top: 0; left: 0; z-index: 60; height: 100vh !important;
+    transform: translateX(-100%); transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+    box-shadow: var(--shadow-lg);
+  }
+  .triage-sidebar.is-open { transform: translateX(0); }
+  .triage-sidebar-backdrop {
+    display: block; position: fixed; inset: 0;
+    background: color-mix(in oklch, var(--ink-950) 45%, transparent);
+    z-index: 55;
+  }
+  .triage-list-pane, .triage-detail-pane { width: 100% !important; border-right: none !important; }
+  .triage-filter-popover { width: 220px !important; right: 0 !important; }
+  .triage-collapse-toggle { display: none !important; }
+}
