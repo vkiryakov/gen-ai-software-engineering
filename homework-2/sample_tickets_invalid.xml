@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <subject>Valid ticket for control</subject>
+    <customer_name>Valid Customer</customer_name>
+    <customer_email>valid@example.com</customer_email>
+    <description>This is a perfectly valid ticket used as a control row in the invalid dataset.</description>
+  </ticket>
+  <ticket>
+    <customer_name>No Subject</customer_name>
+    <customer_email>nosubject@example.com</customer_email>
+    <description>This row is missing the required subject field entirely, should fail validation.</description>
+  </ticket>
+  <ticket>
+    <subject>Bad email format</subject>
+    <customer_name>Bad Email</customer_name>
+    <customer_email>not-an-email</customer_email>
+    <description>This row has an email address that is not in a valid email format at all.</description>
+  </ticket>
+  <ticket>
+    <subject>Description too short</subject>
+    <customer_name>Short Desc</customer_name>
+    <customer_email>short@example.com</customer_email>
+    <description>short</description>
+  </ticket>
+  <ticket>
+    <subject>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</subject>
+    <customer_name>Long Subject</customer_name>
+    <customer_email>long@example.com</customer_email>
+    <description>This row has a subject field that exceeds the 200 character maximum length limit.</description>
+  </ticket>
+  <ticket>
+    <subject>Invalid category value</subject>
+    <customer_name>Bad Category</customer_name>
+    <customer_email>category@example.com</customer_email>
+    <description>This row supplies a category value that is not one of the allowed enum options.</description>
+    <category>not_a_real_category</category>
+  </ticket>
+  <ticket>
+    <subject>Invalid priority value</subject>
+    <customer_name>Bad Priority</customer_name>
+    <customer_email>priority@example.com</customer_email>
+    <description>This row supplies a priority value that is not one of the allowed enum options.</description>
+    <priority>super-urgent</priority>
+  </ticket>
+  <ticket>
+    <subject>Missing customer name</subject>
+    <customer_email>noname@example.com</customer_email>
+    <description>This row is missing the required customer_name field, should fail validation.</description>
+  </ticket>
+</tickets>

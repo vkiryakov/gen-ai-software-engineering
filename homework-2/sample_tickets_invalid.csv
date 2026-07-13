@@ -1,0 +1,9 @@
+subject,customer_name,customer_email,description,category,priority
+Valid ticket for control,Valid Customer,valid@example.com,This is a perfectly valid ticket used as a control row in the invalid dataset.,,
+,No Subject,nosubject@example.com,"This row is missing the required subject field entirely, should fail validation.",,
+Bad email format,Bad Email,not-an-email,This row has an email address that is not in a valid email format at all.,,
+Description too short,Short Desc,short@example.com,short,,
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX,Long Subject,long@example.com,This row has a subject field that exceeds the 200 character maximum length limit.,,
+Invalid category value,Bad Category,category@example.com,This row supplies a category value that is not one of the allowed enum options.,not_a_real_category,
+Invalid priority value,Bad Priority,priority@example.com,This row supplies a priority value that is not one of the allowed enum options.,,super-urgent
+Missing customer name,,noname@example.com,"This row is missing the required customer_name field, should fail validation.",,
