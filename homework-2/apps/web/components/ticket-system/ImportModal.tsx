@@ -1,7 +1,7 @@
 // apps/web/components/ticket-system/ImportModal.tsx
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { FileCheck2, FileCode, FileJson, FileSpreadsheet, FileUp, Upload } from 'lucide-react';
 import type { ImportSummary } from '@repo/contracts';
 import { Modal } from './ds/Modal';
@@ -40,13 +40,18 @@ export function ImportModal({ open, api, onClose, onImported }: ImportModalProps
   const [importing, setImporting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
+  // Reset the form fields whenever the modal transitions to open, computed
+  // during render (per https://react.dev/learn/you-might-not-need-an-effect)
+  // instead of a useEffect, so no extra state-setting effect is needed.
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
     if (open) {
       setFile(null);
       setError(null);
       setImporting(false);
     }
-  }, [open]);
+  }
 
   const acceptFile = (f: File | null | undefined) => {
     if (!f) return;

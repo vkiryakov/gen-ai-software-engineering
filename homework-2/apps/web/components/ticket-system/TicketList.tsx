@@ -162,13 +162,15 @@ export function TicketList({ tickets, loading, activeId, onSelect, tab, onTab, o
   const toggle = (id: string) =>
     setSelected((s) => {
       const n = new Set(s);
-      n.has(id) ? n.delete(id) : n.add(id);
+      if (n.has(id)) n.delete(id);
+      else n.add(id);
       return n;
     });
   const toggleInSet = (setter: (fn: (s: Set<string>) => Set<string>) => void) => (v: string) =>
     setter((s) => {
       const n = new Set(s);
-      n.has(v) ? n.delete(v) : n.add(v);
+      if (n.has(v)) n.delete(v);
+      else n.add(v);
       return n;
     });
 

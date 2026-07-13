@@ -1,7 +1,7 @@
 // apps/web/components/ticket-system/TriageApp.tsx
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import type { Ticket, UpdateTicketInput } from '@repo/contracts';
 import { createApiClient } from '../../lib/ticket-system/api';
 import { type QueueId, type ToastState } from '../../lib/ticket-system/constants';
@@ -16,16 +16,24 @@ import { ImportModal } from './ImportModal';
 
 const TOKEN_KEY = 'triage_token';
 
+const MOBILE_QUERY = '(max-width: 860px)';
+
+function subscribeToMobileQuery(callback: () => void) {
+  const mq = window.matchMedia(MOBILE_QUERY);
+  mq.addEventListener('change', callback);
+  return () => mq.removeEventListener('change', callback);
+}
+
+function getMobileSnapshot(): boolean {
+  return window.matchMedia(MOBILE_QUERY).matches;
+}
+
+function getServerMobileSnapshot(): boolean {
+  return false;
+}
+
 function useIsMobile(): boolean {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 860px)');
-    setIsMobile(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
-  return isMobile;
+  return useSyncExternalStore(subscribeToMobileQuery, getMobileSnapshot, getServerMobileSnapshot);
 }
 
 export function TriageApp({ apiBaseUrl }: { apiBaseUrl: string }) {
@@ -33,6 +41,10 @@ export function TriageApp({ apiBaseUrl }: { apiBaseUrl: string }) {
   const [authReady, setAuthReady] = useState(false);
 
   useEffect(() => {
+    // One-time client-only read: localStorage isn't available during SSR, and
+    // authReady intentionally gates rendering until this has run so the SSR'd
+    // page and the first client render match (no login-screen/queue flash).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setToken(localStorage.getItem(TOKEN_KEY));
     setAuthReady(true);
   }, []);
@@ -75,6 +87,9 @@ function AgentApp({ api, onLogout }: { api: ReturnType<typeof createApiClient>; 
   const [toast, setToast] = useState<ToastState | null>(null);
 
   useEffect(() => {
+    // One-time client-only read of a persisted UI preference; localStorage
+    // isn't available during SSR so this can't be computed at render time.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSidebarCollapsed(localStorage.getItem('triage_sidebar_collapsed') === '1');
   }, []);
 
@@ -95,6 +110,9 @@ function AgentApp({ api, onLogout }: { api: ReturnType<typeof createApiClient>; 
   }, [api]);
 
   useEffect(() => {
+    // Fetch tickets on mount — a canonical "synchronize with an external
+    // system" effect, not derived UI state.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     refresh();
   }, [refresh]);
 

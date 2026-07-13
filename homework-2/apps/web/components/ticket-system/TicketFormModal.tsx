@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Plus, Save } from 'lucide-react';
 import type { Ticket, TicketCategory, TicketPriority, TicketSource } from '@repo/contracts';
 import { Modal } from './ds/Modal';
@@ -57,24 +57,32 @@ export function TicketFormModal({ open, ticket, api, onClose, onSaved }: TicketF
   const [saving, setSaving] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!open) return;
-    setTouched(false);
-    setApiError(null);
-    setForm(
-      ticket
-        ? {
-            subject: ticket.subject,
-            customer_name: ticket.customer_name,
-            customer_email: ticket.customer_email,
-            category: ticket.category,
-            priority: ticket.priority,
-            source: ticket.metadata.source,
-            description: ticket.description,
-          }
-        : emptyForm(),
-    );
-  }, [open, ticket]);
+  // Populate the form whenever the modal transitions to open (or the target
+  // ticket changes while open), computed during render (per
+  // https://react.dev/learn/you-might-not-need-an-effect) instead of a
+  // useEffect, so no extra state-setting effect is needed.
+  const openKey = `${open}:${ticket?.id ?? ''}`;
+  const [initedKey, setInitedKey] = useState(openKey);
+  if (openKey !== initedKey) {
+    setInitedKey(openKey);
+    if (open) {
+      setTouched(false);
+      setApiError(null);
+      setForm(
+        ticket
+          ? {
+              subject: ticket.subject,
+              customer_name: ticket.customer_name,
+              customer_email: ticket.customer_email,
+              category: ticket.category,
+              priority: ticket.priority,
+              source: ticket.metadata.source,
+              description: ticket.description,
+            }
+          : emptyForm(),
+      );
+    }
+  }
 
   const set = <K extends keyof FormState>(k: K) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }) as FormState);
