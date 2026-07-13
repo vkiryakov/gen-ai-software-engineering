@@ -1,5 +1,9 @@
 # Intelligent Customer Support System
 
+> **Student Name**: Volodymyr Kiryakov
+> **Date Submitted**: 2026-07-13
+> **AI Tools Used**: Claude Code + Claude Design
+
 A customer support ticket management system: import tickets from CSV/JSON/XML, auto-classify them with keyword-based rules, and manage the whole queue through a REST API and a Next.js triage console.
 
 This is a pnpm/Turborepo monorepo with two apps (`api`, `web`) sharing a single contracts package for validation and types.
