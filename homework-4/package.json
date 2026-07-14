@@ -1,0 +1,19 @@
+{
+  "name": "homework-4-notes-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sample Notes API used as the target for the homework-4 4-agent pipeline",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest",
+    "pipeline": "./run-pipeline.sh"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  }
+}
