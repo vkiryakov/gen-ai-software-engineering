@@ -87,7 +87,7 @@ cp homework-5/mcp.json .mcp.json
 claude mcp add github    -- npx -y @modelcontextprotocol/server-github
 claude mcp add filesystem -- npx -y @modelcontextprotocol/server-filesystem \
   /Users/vkiryakov/workspace/set/gen-ai-software-engineering/homework-5
-claude mcp add --transport sse atlassian https://mcp.atlassian.com/v1/sse
+claude mcp add --transport http atlassian https://mcp.atlassian.com/v1/mcp
 claude mcp add custom-lorem -- uv run --python 3.12 \
   --directory /Users/vkiryakov/workspace/set/gen-ai-software-engineering/homework-5/custom-mcp-server server.py
 ```
@@ -137,10 +137,13 @@ No credentials — access is limited to the directory passed as the last CLI arg
 
 ### 3.3 Jira / Atlassian MCP
 
-Uses the official **Atlassian Remote MCP Server** over SSE with **OAuth** (no token in the
-config). On first use, run `/mcp` in Claude Code and authorize `atlassian` — a browser
-window opens for Atlassian login and consent. (Alt endpoint: streamable HTTP at
-`https://mcp.atlassian.com/v1/mcp`.)
+Uses the official **Atlassian Remote MCP Server** over streamable HTTP
+(`https://mcp.atlassian.com/v1/mcp`) with **OAuth** (no token in the config). On first use,
+run `/mcp` in Claude Code and authorize `atlassian` — a browser window opens for Atlassian
+login and consent.
+
+> The older HTTP+SSE endpoint `https://mcp.atlassian.com/v1/sse` is **deprecated after
+> 30 Jun 2026** — use the `/v1/mcp` streamable-HTTP endpoint above.
 
 **Required request** — last 5 bugs of a real project:
 

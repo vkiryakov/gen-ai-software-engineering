@@ -1,36 +1,31 @@
-# Evidence — Jira / Atlassian MCP  ⚠️ TEMPLATE — fill in from your IDE
+# Evidence — Jira / Atlassian MCP
 
-**Server:** Atlassian Remote MCP Server (SSE + OAuth) — `https://mcp.atlassian.com/v1/sse`.
-
-This request needs **interactive OAuth**, which cannot run in a non-interactive session.
-Do it in your IDE: run `/mcp` → authorize `atlassian`, then make the request below and
-paste the (sanitized) result here.
+**Server:** Atlassian Remote MCP Server (streamable HTTP + OAuth) — `https://mcp.atlassian.com/v1/mcp`.
+**Interaction:** the required "last 5 bugs" request, run live in the IDE after OAuth.
+Tool called: `Atlassian [searchJiraIssuesUsingJql]`.
 
 ## Request
 
-> "Give me the tickets of the last 5 bugs on `<PROJECT>`."
+> "Give me the tickets of the last 5 bugs on Lovespace."
 
-Equivalent JQL the MCP runs:
+Equivalent JQL the MCP ran:
 
 ```jql
-project = "<PROJECT>" AND issuetype = Bug ORDER BY created DESC
+project = "LS" AND issuetype = Bug ORDER BY created DESC
 ```
 (`maxResults = 5`)
 
 ## Response — sanitized (ticket keys only, no sensitive content)
 
-Replace the placeholders with your real ticket keys:
+Per the task, only ticket numbers are shown; summaries/descriptions are intentionally omitted.
 
-| # | Ticket key | Created (date only) | Status |
-|---|------------|---------------------|--------|
-| 1 | `PROJ-###` |                     |        |
-| 2 | `PROJ-###` |                     |        |
-| 3 | `PROJ-###` |                     |        |
-| 4 | `PROJ-###` |                     |        |
-| 5 | `PROJ-###` |                     |        |
+| # | Ticket key | Status | Created |
+|---|------------|--------|---------|
+| 1 | `LS-2243` | In Progress | 2026-05-15 |
+| 2 | `LS-2212` | Backlog | 2026-05-15 |
+| 3 | `LS-2211` | Backlog | 2026-05-15 |
+| 4 | `LS-2208` | Backlog | 2026-05-15 |
+| 5 | `LS-2192` | Done | 2026-05-15 |
 
-> Per the task: **do not** include summaries/descriptions or any sensitive data — ticket
-> numbers are enough to represent a working response.
-
-**Screenshot to capture (`docs/screenshots/jira-or-notion-mcp-result.png`):** screenshot
-the request + response in Claude Code (blur/redact any sensitive text).
+Screenshot: [`docs/screenshots/jira-or-notion-mcp-result.png`](../screenshots/jira-or-notion-mcp-result.png)
+(summary/assignee columns should be redacted there before committing to a public repo).

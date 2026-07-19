@@ -46,7 +46,7 @@ homework-5/
 → [`docs/evidence/filesystem-mcp-result.md`](docs/evidence/filesystem-mcp-result.md)
 
 ### 3. Jira / Atlassian MCP ⭐⭐
-Официальный **Atlassian Remote MCP Server** (SSE, OAuth) — `https://mcp.atlassian.com/v1/sse`.
+Официальный **Atlassian Remote MCP Server** (streamable HTTP, OAuth) — `https://mcp.atlassian.com/v1/mcp`.
 Позволяет Claude запрашивать проект в Jira. Целевой запрос: *«последние 5 багов проекта»*
 (JQL `issuetype = Bug ORDER BY created DESC`, `maxResults = 5`). Авторизация OAuth и живой
 запрос выполняются в интерактивном IDE.
