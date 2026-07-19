@@ -1,0 +1,29 @@
+{
+  "name": "hw6-transaction-pipeline",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "pipeline": "tsx orchestrator.ts",
+    "validate": "tsx pipeline/validator.ts --dry-run",
+    "mcp": "tsx mcp/server.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "decimal.js": "^10.4.3",
+    "express": "^4.21.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

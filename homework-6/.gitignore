@@ -1,0 +1,10 @@
+node_modules/
+coverage/
+dist/
+shared/input/*.json
+shared/processing/*.json
+shared/output/*.json
+shared/results/*.json
+!shared/**/.gitkeep
+frontend/dist/
+frontend/node_modules/
