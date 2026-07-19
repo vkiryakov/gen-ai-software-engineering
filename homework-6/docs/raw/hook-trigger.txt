@@ -1,0 +1,6 @@
+$ echo '{"tool_input":{"command":"git push origin homework-6"}}' | COVERAGE_MIN=99.9 node scripts/coverage-gate-hook.mjs
+
+❌ coverage gate FAILED: line coverage 95.32% < 99.9% — push blocked.
+BLOCK: coverage gate failed — `git push` rejected by hook (coverage < 80%).
+$ echo "exit=$?"
+exit=2  (push blocked by PreToolUse hook)

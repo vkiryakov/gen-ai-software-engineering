@@ -1,0 +1,66 @@
+Tools: get_transaction_status, list_pipeline_results
+
+> list_pipeline_results
+{
+  "total": 8,
+  "by_status": {
+    "settled": 3,
+    "flagged": 3,
+    "rejected": 2
+  },
+  "transactions": [
+    {
+      "transaction_id": "TXN001",
+      "status": "settled"
+    },
+    {
+      "transaction_id": "TXN002",
+      "status": "flagged",
+      "reason": "risk 60: HIGH_VALUE"
+    },
+    {
+      "transaction_id": "TXN003",
+      "status": "flagged",
+      "reason": "risk 55: STRUCTURING"
+    },
+    {
+      "transaction_id": "TXN004",
+      "status": "settled"
+    },
+    {
+      "transaction_id": "TXN005",
+      "status": "flagged",
+      "reason": "risk 60: HIGH_VALUE"
+    },
+    {
+      "transaction_id": "TXN006",
+      "status": "rejected",
+      "reason": "unsupported currency: XYZ (not ISO 4217)"
+    },
+    {
+      "transaction_id": "TXN007",
+      "status": "rejected",
+      "reason": "invalid amount: -100.00 (must be > 0)"
+    },
+    {
+      "transaction_id": "TXN008",
+      "status": "settled"
+    }
+  ]
+}
+
+> get_transaction_status { transaction_id: 'TXN002' }
+{
+  "found": true,
+  "transaction_id": "TXN002",
+  "status": "flagged",
+  "reason": "risk 60: HIGH_VALUE",
+  "risk_score": 60
+}
+
+Resources: pipeline://summary
+> read pipeline://summary
+Pipeline summary — 8 transactions processed
+  settled: 3
+  flagged: 3
+  rejected: 2
