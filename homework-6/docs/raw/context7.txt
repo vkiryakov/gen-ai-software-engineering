@@ -1,0 +1,16 @@
+$ context7 → resolve-library-id  "Model Context Protocol TypeScript SDK"
+  ✔ /modelcontextprotocol/typescript-sdk   (High reputation · 1463 snippets · score 87.6)
+
+$ context7 → query-docs  /modelcontextprotocol/typescript-sdk
+  "create McpServer with StdioServerTransport, register a tool and a resource"
+  → registerTool(name, { description, inputSchema: z.object({...}) }, handler)
+  → handler returns { content: [{ type: 'text', text }] }
+  → registerResource(name, uri, { mimeType }, async uri => ({ contents: [...] }))
+  → new StdioServerTransport(); await server.connect(transport)
+
+$ context7 → resolve-library-id  "decimal.js"
+  ✔ /mikemcl/decimal.js   (High reputation · 809 snippets · score 88.6)
+
+$ context7 → query-docs  /mikemcl/decimal.js  "ROUND_HALF_UP for money"
+  → Decimal.set({ precision: 28, rounding: Decimal.ROUND_HALF_UP })  // financial config
+  → x.plus(y) / Decimal.mul(a, b) / y.toFixed(2)   → exact currency math

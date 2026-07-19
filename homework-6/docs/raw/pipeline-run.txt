@@ -1,0 +1,62 @@
+
+> hw6-transaction-pipeline@1.0.0 pipeline
+> tsx orchestrator.ts
+
+[2026-07-19T19:28:01.699Z] stage=validator txn=TXN001 outcome=validated
+[2026-07-19T19:28:01.699Z] stage=validator txn=TXN002 outcome=validated
+[2026-07-19T19:28:01.700Z] stage=validator txn=TXN003 outcome=validated
+[2026-07-19T19:28:01.700Z] stage=validator txn=TXN004 outcome=validated
+[2026-07-19T19:28:01.701Z] stage=validator txn=TXN005 outcome=validated
+[2026-07-19T19:28:01.701Z] stage=validator txn=TXN006 outcome=rejected detail=unsupported currency: XYZ (not ISO 4217)
+[2026-07-19T19:28:01.701Z] stage=validator txn=TXN007 outcome=rejected detail=invalid amount: -100.00 (must be > 0)
+[2026-07-19T19:28:01.702Z] stage=validator txn=TXN008 outcome=validated
+[2026-07-19T19:28:01.702Z] stage=fraud_detector txn=TXN001 outcome=validated
+[2026-07-19T19:28:01.703Z] stage=fraud_detector txn=TXN002 outcome=flagged detail=risk 60: HIGH_VALUE
+[2026-07-19T19:28:01.703Z] stage=fraud_detector txn=TXN003 outcome=flagged detail=risk 55: STRUCTURING
+[2026-07-19T19:28:01.704Z] stage=fraud_detector txn=TXN004 outcome=validated
+[2026-07-19T19:28:01.704Z] stage=fraud_detector txn=TXN005 outcome=flagged detail=risk 60: HIGH_VALUE
+[2026-07-19T19:28:01.704Z] stage=fraud_detector txn=TXN008 outcome=validated
+[2026-07-19T19:28:01.705Z] stage=compliance txn=TXN001 outcome=cleared
+[2026-07-19T19:28:01.705Z] stage=compliance txn=TXN004 outcome=cleared
+[2026-07-19T19:28:01.706Z] stage=compliance txn=TXN008 outcome=cleared
+[2026-07-19T19:28:01.706Z] stage=settlement txn=TXN001 outcome=settled
+[2026-07-19T19:28:01.707Z] stage=settlement txn=TXN004 outcome=settled
+[2026-07-19T19:28:01.707Z] stage=settlement txn=TXN008 outcome=settled
+
+=== Pipeline summary ===
+{
+  "run_at": "2026-07-19T19:28:01.708Z",
+  "total": 8,
+  "by_status": {
+    "settled": 3,
+    "flagged": 3,
+    "rejected": 2
+  },
+  "reasons": [
+    {
+      "transaction_id": "TXN002",
+      "status": "flagged",
+      "reason": "risk 60: HIGH_VALUE"
+    },
+    {
+      "transaction_id": "TXN003",
+      "status": "flagged",
+      "reason": "risk 55: STRUCTURING"
+    },
+    {
+      "transaction_id": "TXN005",
+      "status": "flagged",
+      "reason": "risk 60: HIGH_VALUE"
+    },
+    {
+      "transaction_id": "TXN006",
+      "status": "rejected",
+      "reason": "unsupported currency: XYZ (not ISO 4217)"
+    },
+    {
+      "transaction_id": "TXN007",
+      "status": "rejected",
+      "reason": "invalid amount: -100.00 (must be > 0)"
+    }
+  ]
+}
